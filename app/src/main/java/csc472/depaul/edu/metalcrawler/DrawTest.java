@@ -25,7 +25,8 @@ public class DrawTest extends View{
 
     public DrawTest(Context context)
     {
-        super(context);
+        super(context);        go = new DrawTest_GO(128,128,this);
+
     }
 
     public DrawTest(Context context, AttributeSet attrs)
@@ -38,6 +39,7 @@ public class DrawTest extends View{
         mPiePaint.setStyle(Paint.Style.FILL);
         mPiePaint.setTextSize(mTextHeight);
         bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.andremad_display_bmp);
+        go = new DrawTest_GO(128,128,this);
     }
 
     DrawTest_GO go;
@@ -46,10 +48,17 @@ public class DrawTest extends View{
         this.go = go;
     }
 
+    public void Update()
+    {
+        System.out.println("DRAWTEST_UPDATE");
+        go.Update();
+        invalidate();
+    }
+
     @Override
     protected void onDraw(Canvas canvas)
     {
-        super.onDraw(canvas);
+        super.onDraw(canvas); go.draw(canvas);
     }
 
 }

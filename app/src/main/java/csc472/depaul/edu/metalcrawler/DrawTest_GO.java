@@ -17,6 +17,8 @@ public class DrawTest_GO {
     {
         this.sx = x;
         this.sy = y;
+        this.x = x;
+        this.y = y;
         bitmap = BitmapFactory.decodeResource(view.getResources(),R.drawable.andremad_display_bmp);
     }
 
@@ -26,6 +28,12 @@ public class DrawTest_GO {
         angle += rate;
         x = sx + (float) (Math.cos(angle)) * radius;
         y = sy + (float) (Math.sin(angle)) * radius;
+        System.out.println("GO_UPDATE");
+    }
+
+    public void FlipDirection()
+    {
+        rate = -rate;
     }
 
     float angle = 0;
