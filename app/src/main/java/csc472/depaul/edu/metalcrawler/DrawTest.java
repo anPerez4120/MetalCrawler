@@ -8,6 +8,9 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
 
+import csc472.depaul.edu.metalcrawler.GameComponents.GameManager;
+import csc472.depaul.edu.metalcrawler.GameComponents.Player;
+
 public class DrawTest extends View{
     Paint mTextPaint;
     int mTextColor = 0xff00;
@@ -50,15 +53,23 @@ public class DrawTest extends View{
 
     public void Update()
     {
-        System.out.println("DRAWTEST_UPDATE");
-        go.Update();
+        GameManager.Instance().PerformTurn();
         invalidate();
+    }
+
+    Player player;
+    public void SetPlayer(Player player)
+    {
+        //temp
+        this.player = player;
     }
 
     @Override
     protected void onDraw(Canvas canvas)
     {
-        super.onDraw(canvas); go.draw(canvas);
+        super.onDraw(canvas);
+        GameManager.Instance().Draw(canvas);
+        player.draw(canvas);
     }
 
 }

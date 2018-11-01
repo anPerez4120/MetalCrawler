@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MetalCrawler</string>
+    <string name="move_Left"><![CDATA[<]]></string>
 </resources>
