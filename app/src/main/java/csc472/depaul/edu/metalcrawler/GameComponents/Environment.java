@@ -3,6 +3,9 @@ package csc472.depaul.edu.metalcrawler.GameComponents;
 import android.graphics.Canvas;
 import android.view.View;
 
+import csc472.depaul.edu.metalcrawler.GameComponents.CellularAutomata.TileBlockType;
+import csc472.depaul.edu.metalcrawler.GameComponents.CellularAutomata.CellularAutomata;
+
 public class Environment {
     Tile[][] tileGrid;
     int width, height;
@@ -11,7 +14,7 @@ public class Environment {
         tileGrid = new Tile[x][y];
         width = x;
         height = y;
-        PopulateTiles(view);
+        // PopulateTiles(view);
         // TODO: populate grid
     }
 
@@ -26,8 +29,9 @@ public class Environment {
         {
             for (int y=0; y < height; y++)
             {
-                System.out.println(tileGrid[x][y]);
-                tileGrid[x][y].draw(canvas);
+                if (tileGrid[x][y] != null) {
+                    tileGrid[x][y].draw(canvas);
+                }
             }
         }
     }
@@ -44,5 +48,20 @@ public class Environment {
         }
     }
 
+    void PopulateTiles(View view, csc472.depaul.edu.metalcrawler.GameComponents.CellularAutomata.Tile[][] map)
+    {
+        width = map.length;
+        height = map[0].length;
+        tileGrid = new Tile[map.length][map[0].length];
+
+        for (int x=0; x < map.length; x++)
+        {
+            for (int y=0; y < map[0].length; y++)
+            {
+                if (map[x][y].GetBlockType() == TileBlockType.EMPTY)
+                    tileGrid[x][y] = new Tile(view,x,y);
+            }
+        }
+    }
 
 }

@@ -64,6 +64,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        findViewById(R.id.felipe).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GameManager.Instance().PerformTurn();
+                DrawTest view = findViewById( R.id.drawTest);
+                view.Update();
+
+            }
+        });
         //*/
         GameManager.Instance().GameStart(findViewById(R.id.drawTest));
 
