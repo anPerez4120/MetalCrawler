@@ -8,6 +8,7 @@ public class Tile extends Sprite {
     public Tile(View view)
     {
         super(view);
+        drawLayer = 0;
         occupyingEntity = null;
     }
 
@@ -28,6 +29,15 @@ public class Tile extends Sprite {
         occupyingEntity = entity;
     }
 
+    public void Recycle()
+    {
+        TileFactory.Instance().ReturnTile(this);
+    }
 
+    @Override
+    protected void SetDrawLayer()
+    {
+        drawLayer = 0;
+    }
 
 }

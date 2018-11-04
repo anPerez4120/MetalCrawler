@@ -70,12 +70,22 @@ public class MainActivity extends AppCompatActivity {
         notification.setAutoCancel(true);
 
 
-        player =  new Player(findViewById(R.id.drawTest));
+        findViewById(R.id.felipe).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GameManager.Instance().GenerateNewMap();
+                DrawTest view = findViewById( R.id.drawTest);
+                view.Update();
+
+            }
+        });
+        //*/
+        GameManager.Instance().GameStart(this,findViewById(R.id.drawTest));
 
         findViewById(R.id.move_left).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                player.MoveLeft();
+                GameManager.Instance().GetPlayer().MoveLeft();
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
 
@@ -84,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.move_right).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                player.MoveRight();
+                GameManager.Instance().GetPlayer().MoveRight();
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
 
@@ -93,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.move_up).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                player.MoveUp();
+                GameManager.Instance().GetPlayer().MoveUp();
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
 
@@ -102,26 +112,13 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.move_down).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                player.MoveDown();
-                DrawTest view = findViewById( R.id.drawTest);
-                view.Update();
-
-            }
-        });
-
-
-        findViewById(R.id.felipe).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GameManager.Instance().PerformTurn();
+                GameManager.Instance().GetPlayer().MoveDown();
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
                 sendNotification(view);
 
             }
         });
-        //*/
-        GameManager.Instance().GameStart(findViewById(R.id.drawTest));
 
     }
 

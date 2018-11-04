@@ -69,7 +69,6 @@ public class DrawTest extends View{
     {
         super.onDraw(canvas);
         GameManager.Instance().Draw(canvas);
-        player.draw(canvas);
     }
 
 }

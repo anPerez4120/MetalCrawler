@@ -11,20 +11,60 @@ public class Actor extends Entity implements IMoving, IDamage {
 
     public Actor(View view) {
         super(view);
+        GameManager.Instance().AddActor(this);
+    }
+    public Actor(View view, int x, int y) {
+        super(view);
     }
 
     // TODO: Move
-    public void MoveUp(){ y -= 1;}
-    public void MoveDown(){ y += 1;}
-    public void MoveLeft(){ x -= 1;}
-    public void MoveRight(){ x += 1;}
+    public void MoveUp(){       AttemptMove( 0,-1);}
+    public void MoveDown(){     AttemptMove( 0, 1);}
+    public void MoveLeft(){     AttemptMove(-1, 0);}
+    public void MoveRight(){    AttemptMove( 1, 0);}
+
     public void JumpToPosition(int x, int y){this.x = x; this.y = y;}
 
+    public void AttemptMove(int dx, int dy)
+    {
+        int newX = x+dx;
+        int newY = y+dy;
+
+        Tile tile = GameManager.Instance().GetTile(newX,newY);
+
+        if (tile == null) // We dont care about null tiles rn
+        {
+            Move(dx,dy);
+        }
+        else {
+            if (tile.GetEntity() != null) { // Is there an entity there
+                if (!tile.GetEntity().IsSolid()) { // Is it flaccid :)))))) wait why did android studio spell-check me on the word 'flaccid'
+                    Move(dx,dy);
+                }
+                tile.GetEntity().OnTouched(this); // Perform its onTouch
+            } else {
+                Move(dx,dy);
+            }
+        }
+    }
+
+    public void Move(int dx, int dy)
+    {
+        int oldX = x;
+        int oldY = y;
+        x += dx;
+        y += dy;
+        GameManager.Instance().GetCurrentEnvironment().HookUpTile(oldX,oldY,x,y,this);
+    }
     // TODO: Daamge
-    public void Damage(float damage){};
-    public void Heal(float heal){};
-    public void RestoreHealth(){};
-    public void Die(){}
+    public void Damage(float damage){
+        health -= damage;
+        if (health <= 0)
+            Die();
+    }
+    public void Heal(float heal){}
+    public void RestoreHealth(){}
+    public void Die(){GameManager.Instance().GetCurrentEnvironment().HookUpTile(x,y,-1,-1,this);}//GameManager.Instance().RemoveSprite(this);GameManager.Instance().RemoveActor(this);}
 
     public float GetDamage()
     {
@@ -41,6 +81,16 @@ public class Actor extends Entity implements IMoving, IDamage {
         return this.health_max;
     }
 
+    public void Update()
+    {
+        // Do Nothing
+    }
 
+
+    @Override
+    public void OnTouched(Actor other)
+    {
+        Damage(other.GetDamage());
+    }
 
 }

@@ -7,18 +7,46 @@ import csc472.depaul.edu.metalcrawler.DrawTest;
 import csc472.depaul.edu.metalcrawler.R;
 
 public class Player extends Actor {
+    float momentum = 1;
+    int ldx = 0;
+    int ldy = 0;
 
     public Player(View view) {
         super(view);
+        drawLayer = 1;
         isSolid = true;
-        bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.andremad_display);
-        ((DrawTest)view).SetPlayer(this);
+        bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.player);
+        GameManager.Instance().SetPlayer(this);
     }
 
     @Override
-    public void OnTouched(Actor other)
+    public void AttemptMove(int dx, int dy)
     {
-        health -= other.GetDamage();
+        if (ldx == dx && ldy == dy)
+        {
+            momentum += 1;
+        } else
+        {
+            momentum = 1;
+        }
+
+        ldx = dx;
+        ldy = dy;
+
+        super.AttemptMove(dx,dy);
+    }
+
+    @Override
+    public float GetDamage()
+    {
+        return damage * momentum;
+    }
+
+
+    @Override
+    protected void SetDrawLayer()
+    {
+        drawLayer = 1;
     }
 
 }
