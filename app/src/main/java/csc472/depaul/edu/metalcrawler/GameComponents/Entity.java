@@ -8,6 +8,7 @@ public class Entity extends Sprite {
 
     public Entity(View view) {
         super(view);
+        GameManager.Instance().GetCurrentEnvironment().HookUpTile(x,y,x,y,this);
     }
 
     public Entity(View view, int x, int y) {
@@ -19,4 +20,8 @@ public class Entity extends Sprite {
         // Touch ME ;)))))
     }
 
+    public boolean IsSolid()
+    {
+        return isSolid;
+    }
 }
