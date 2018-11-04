@@ -1,7 +1,9 @@
 package csc472.depaul.edu.metalcrawler;
 
 import android.Manifest;
+import android.app.Notification;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -34,6 +36,17 @@ public class SettingsActivity extends AppCompatActivity {
                  }
             }
         });
+
+        Button notificationActivity = findViewById(R.id.notificationButton);
+        if (notificationActivity != null){
+            notificationActivity.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(SettingsActivity.this, NotificationActivity.class);
+                    SettingsActivity.this.startActivity(intent);
+                }
+            });
+        }
     }
 
     private void requestPermission(){

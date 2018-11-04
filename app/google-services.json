@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "395464929640",
+    "firebase_url": "https://metal-crawler.firebaseio.com",
+    "project_id": "metal-crawler",
+    "storage_bucket": "metal-crawler.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395464929640:android:61995612b1b8cd3e",
+        "android_client_info": {
+          "package_name": "csc472.depaul.edu.metalcrawler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395464929640-oe4qnq5n3n0g5j418ua49bi0bcnb2e7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByF5kLUKCpvQwRF2sMJFa_SrgdwEc3dgM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
