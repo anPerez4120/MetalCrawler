@@ -44,7 +44,7 @@ View view;
 
     public void PerformTurn()
     {
-        environmentList.get(currentEnvironment).PopulateTiles(view,cellAuto.GenerateMap(w,h));
+//        environmentList.get(currentEnvironment).PopulateTiles(view,cellAuto.GenerateMap(w,h));
     }
 
     public void Draw(Canvas canvas)
