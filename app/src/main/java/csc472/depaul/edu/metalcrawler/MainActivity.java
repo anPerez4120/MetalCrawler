@@ -48,47 +48,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         System.out.println("ONCREATE-------------------");
-        verifyPermissions();
-    }
 
-    public void sendNotification(View view){
-
-        notification.setSmallIcon(R.drawable.player);
-        notification.setTicker("Play My Game");
-        notification.setWhen(System.currentTimeMillis());
-        notification.setContentTitle("Metal Crawler");
-        notification.setContentText("Crawl through the metsl metal jungle!!!");
-
-        Intent intent = new Intent(this, MainActivity.class);
-        //Gives phone access to the app
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        notification.setContentIntent(pendingIntent);
-
-        //Issues Notification
-        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        nm.notify(uniqueID, notification.build());
-    }
-
-    private void verifyPermissions(){
-        Log.d(tag, "verifyPermissions: asking user for permissions");
-        String[] permissions = {Manifest.permission.INTERNET};
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), permissions[0]) == PackageManager.PERMISSION_GRANTED) {
-            setupView();
-        }else{
-            new AlertDialog.Builder(this)
-                    .setTitle("Permission Needed")
-                    .setMessage("This permission is needed to send Push Notifications")
-                    .create().show();
-            ActivityCompat.requestPermissions(MainActivity.this, permissions, requestCode);
+        Button settingsActivity = findViewById(R.id.settingsButton);
+        if(settingsActivity != null){
+            settingsActivity.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                    MainActivity.this.startActivity(intent);
+                }
+            });
         }
-    }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        verifyPermissions();
-    }
-
-    private void setupView(){
         // Used for online notifications, not sure why it is not working
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
@@ -151,5 +122,25 @@ public class MainActivity extends AppCompatActivity {
         });
         //*/
         GameManager.Instance().GameStart(findViewById(R.id.drawTest));
+
     }
+
+    public void sendNotification(View view){
+
+        notification.setSmallIcon(R.drawable.player);
+        notification.setTicker("Play My Game");
+        notification.setWhen(System.currentTimeMillis());
+        notification.setContentTitle("Metal Crawler");
+        notification.setContentText("Crawl through the metsl metal jungle!!!");
+
+        Intent intent = new Intent(this, MainActivity.class);
+        //Gives phone access to the app
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notification.setContentIntent(pendingIntent);
+
+        //Issues Notification
+        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        nm.notify(uniqueID, notification.build());
+    }
+
 }
