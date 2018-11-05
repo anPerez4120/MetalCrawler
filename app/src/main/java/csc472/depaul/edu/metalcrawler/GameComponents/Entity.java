@@ -5,6 +5,7 @@ import android.view.View;
 
 public class Entity extends Sprite {
     boolean isSolid;
+    EntityType type;
 
     public Entity(View view) {
         super(view);
@@ -24,4 +25,25 @@ public class Entity extends Sprite {
     {
         return isSolid;
     }
+
+
+    public void SetType(EntityType type)
+    {
+        this.type = type;
+    }
+
+    public EntityType GetType()
+    {
+        return type;
+    }
+
+    @Override
+    public void SetPosition(int x, int y)
+    {
+        int ox = this.x;
+        int oy = this.y;
+        super.SetPosition(x,y);
+        GameManager.Instance().GetCurrentEnvironment().HookUpTile(ox,oy,x,y,this);
+    }
+
 }

@@ -3,7 +3,6 @@ package csc472.depaul.edu.metalcrawler.GameComponents;
 import android.view.View;
 
 public class Actor extends Entity implements IMoving, IDamage {
-
     float health = 100;
     float health_max = 100;
 
@@ -92,5 +91,6 @@ public class Actor extends Entity implements IMoving, IDamage {
     {
         Damage(other.GetDamage());
     }
+
 
 }
