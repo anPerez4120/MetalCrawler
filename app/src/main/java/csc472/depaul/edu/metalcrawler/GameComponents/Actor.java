@@ -36,11 +36,12 @@ public class Actor extends Entity implements IMoving, IDamage {
             Move(dx,dy);
         }
         else {
-            if (tile.GetEntity() != null) { // Is there an entity there
-                if (!tile.GetEntity().IsSolid()) { // Is it flaccid :)))))) wait why did android studio spell-check me on the word 'flaccid'
+            Entity entity = tile.GetEntity();
+            if (entity != null) { // Is there an entity there
+                entity.OnTouched(this); // Perform its onTouch
+                if (tile.GetEntity() == null || !entity.IsSolid()) { // Is it flaccid :)))))) wait why did android studio spell-check me on the word 'flaccid'
                     Move(dx,dy);
                 }
-                tile.GetEntity().OnTouched(this); // Perform its onTouch
             } else {
                 Move(dx,dy);
             }
