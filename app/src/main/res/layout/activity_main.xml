@@ -9,19 +9,22 @@
     <csc472.depaul.edu.metalcrawler.DrawTest
         android:id="@+id/drawTest"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <Button
         android:id="@+id/felipe"
         android:layout_width="wrap_content"
         android:layout_height="49dp"
+        android:onClick="sendNotification"
         android:text="felipe"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.325"
+        app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.268" />
+        app:layout_constraintVertical_bias="0.034" />
 
     <Button
         android:id="@+id/move_down"
@@ -29,11 +32,10 @@
         android:layout_height="wrap_content"
         android:text="v"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.91" />
+        app:layout_constraintVertical_bias="0.965" />
 
     <Button
         android:id="@+id/move_up"
@@ -41,11 +43,10 @@
         android:layout_height="wrap_content"
         android:text="^"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.721" />
+        app:layout_constraintVertical_bias="0.758" />
 
     <Button
         android:id="@+id/move_left"
@@ -53,11 +54,11 @@
         android:layout_height="wrap_content"
         android:text="@string/move_Left"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.259"
+        app:layout_constraintHorizontal_bias="0.31"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.823" />
+        app:layout_constraintVertical_bias="0.861" />
 
     <Button
         android:id="@+id/move_right"
@@ -65,10 +66,22 @@
         android:layout_height="wrap_content"
         android:text=">"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.637"
+        app:layout_constraintHorizontal_bias="0.692"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.808" />
+        app:layout_constraintVertical_bias="0.861" />
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        app:layout_constraintBottom_toTopOf="@+id/drawTest"
+        app:layout_constraintEnd_toStartOf="@+id/drawTest"
+        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintStart_toEndOf="@+id/drawTest"
+        app:layout_constraintTop_toBottomOf="@+id/drawTest"
+        app:layout_constraintVertical_bias="0.765" />
 
 </android.support.constraint.ConstraintLayout>
