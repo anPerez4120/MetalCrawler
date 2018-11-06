@@ -148,5 +148,4 @@ public class GameManager {
     {
         return environmentList.get(currentEnvironment);
     }
-
 }

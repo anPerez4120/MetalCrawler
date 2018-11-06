@@ -50,6 +50,10 @@ public class Environment {
                     tileGrid[x][y] = TileFactory.Instance().GetTile(x,y);
             }
         }
+        if (tileGrid[10][10] != null) {
+            Door door = DoorFactory.Instance().GetDoor(10,10);
+            tileGrid[10][10].SetEntity(door);
+        }
     }
 
     public Tile GetTile(int x, int y)

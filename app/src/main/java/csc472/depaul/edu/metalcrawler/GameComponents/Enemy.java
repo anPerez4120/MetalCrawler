@@ -15,6 +15,7 @@ public class Enemy extends Actor {
         health=20;
         health_max=20;
         bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.junkie);
+        type = EntityType.ENEMY;
     }
 
     public Enemy(View view, int x, int y)
@@ -27,6 +28,7 @@ public class Enemy extends Actor {
         health_max=20;
 
         bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.junkie);
+        type = EntityType.ENEMY;
     }
 
     public void Recycle()

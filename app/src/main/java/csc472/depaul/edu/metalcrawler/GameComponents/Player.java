@@ -3,7 +3,6 @@ package csc472.depaul.edu.metalcrawler.GameComponents;
 import android.graphics.BitmapFactory;
 import android.view.View;
 
-import csc472.depaul.edu.metalcrawler.DrawTest;
 import csc472.depaul.edu.metalcrawler.R;
 
 public class Player extends Actor {
@@ -17,6 +16,7 @@ public class Player extends Actor {
         isSolid = true;
         bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.player);
         GameManager.Instance().SetPlayer(this);
+        type = EntityType.PLAYER;
     }
 
     @Override
