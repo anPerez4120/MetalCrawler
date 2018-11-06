@@ -54,11 +54,23 @@ public class MainActivity extends AppCompatActivity {
             settingsActivity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                    MainActivity.this.startActivity(intent);
+                    Intent intent = new Intent(getMainActivity(), SettingsActivity.class);
+                    getMainActivity().startActivity(intent);
                 }
             });
         }
+
+        Button gameActivity = findViewById(R.id.gameButton);
+        if(gameActivity != null){
+            gameActivity.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), GameActivity.class);
+                    getMainActivity().startActivity(intent);
+                }
+            });
+        }
+
 
         // Used for online notifications, not sure why it is not working
         OneSignal.startInit(this)
@@ -68,57 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
         notification = new NotificationCompat.Builder(this);
         notification.setAutoCancel(true);
-
-
-        findViewById(R.id.felipe).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GameManager.Instance().GenerateNewMap();
-                DrawTest view = findViewById( R.id.drawTest);
-                view.Update();
-
-            }
-        });
-        //*/
-        GameManager.Instance().GameStart(this,findViewById(R.id.drawTest));
-
-        findViewById(R.id.move_left).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GameManager.Instance().GetPlayer().MoveLeft();
-                DrawTest view = findViewById( R.id.drawTest);
-                view.Update();
-
-            }
-        });
-        findViewById(R.id.move_right).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GameManager.Instance().GetPlayer().MoveRight();
-                DrawTest view = findViewById( R.id.drawTest);
-                view.Update();
-
-            }
-        });
-        findViewById(R.id.move_up).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GameManager.Instance().GetPlayer().MoveUp();
-                DrawTest view = findViewById( R.id.drawTest);
-                view.Update();
-
-            }
-        });
-        findViewById(R.id.move_down).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GameManager.Instance().GetPlayer().MoveDown();
-                DrawTest view = findViewById( R.id.drawTest);
-                view.Update();
-                sendNotification(view);
-
-            }
-        });
 
     }
 
@@ -138,6 +99,10 @@ public class MainActivity extends AppCompatActivity {
         //Issues Notification
         NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         nm.notify(uniqueID, notification.build());
+    }
+
+    public MainActivity getMainActivity(){
+        return this;
     }
 
 }
