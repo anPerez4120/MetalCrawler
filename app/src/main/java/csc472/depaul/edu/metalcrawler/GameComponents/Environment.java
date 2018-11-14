@@ -3,8 +3,11 @@ package csc472.depaul.edu.metalcrawler.GameComponents;
 import android.graphics.Canvas;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import csc472.depaul.edu.metalcrawler.GameComponents.CellularAutomata.Coord;
 import csc472.depaul.edu.metalcrawler.GameComponents.CellularAutomata.TileBlockType;
 import csc472.depaul.edu.metalcrawler.GameComponents.CellularAutomata.CellularAutomata;
 
@@ -24,9 +27,23 @@ public class Environment {
     {
         return tileGrid;
     }
-
-    void PopulateTiles(csc472.depaul.edu.metalcrawler.GameComponents.CellularAutomata.Tile[][] map)
+    List<Coord> tiles;
+    Door door;
+    void PopulateTiles(CellularAutomata cellAuto, int w, int h)
     {
+        if (door != null)
+            door.Recycle();
+
+        csc472.depaul.edu.metalcrawler.GameComponents.CellularAutomata.Tile[][] map = cellAuto.GenerateMap(w,h);
+        tiles = cellAuto.GetEmptyTiles();
+
+        List<Coord> tempTiles = new ArrayList<>();
+
+        for (Coord tile : tiles)
+        {
+            tempTiles.add(tile);
+        }
+
         for (int x=0; x < width; x++)
         {
             for (int y=0; y < height; y++)
@@ -39,6 +56,7 @@ public class Environment {
         width = map.length;
         height = map[0].length;
 
+        Random random = new Random();
 
         tileGrid = new Tile[map.length][map[0].length];
 
@@ -50,9 +68,26 @@ public class Environment {
                     tileGrid[x][y] = TileFactory.Instance().GetTile(x,y);
             }
         }
-        if (tileGrid[10][10] != null) {
-            Door door = DoorFactory.Instance().GetDoor(10,10);
-            tileGrid[10][10].SetEntity(door);
+
+        Coord tile = tempTiles.get(random.nextInt(tempTiles.size()));
+        door = DoorFactory.Instance().GetDoor(tile.x,tile.y);
+        tileGrid[tile.x][tile.y].SetEntity(door);
+        tempTiles.remove(tile);
+
+        tile = tempTiles.get(random.nextInt(tempTiles.size()));
+        GameManager.Instance().GetPlayer().JumpToPosition(tile.x,tile.y);
+        tileGrid[tile.x][tile.y].SetEntity(GameManager.Instance().GetPlayer());
+        tempTiles.remove(tile);
+
+        for (int i=0; i<3;i++)
+        {
+            tile = tempTiles.get(random.nextInt(tempTiles.size()));
+            tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetEnemy(tile.x,tile.y));
+            tempTiles.remove(tile);
+
+            tile = tempTiles.get(random.nextInt(tempTiles.size()));
+            tileGrid[tile.x][tile.y].SetEntity(GoldFactory.Instance().GetGold(tile.x,tile.y));
+            tempTiles.remove(tile);
         }
     }
 

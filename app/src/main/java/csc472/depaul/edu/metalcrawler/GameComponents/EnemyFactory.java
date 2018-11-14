@@ -35,6 +35,7 @@ public class EnemyFactory {
 
     public void ReturnEnemy(Enemy enemy)
     {
+
         GameManager.Instance().RemoveSprite(enemy);
         GameManager.Instance().RemoveActor(enemy);
         enemies.push(enemy);
