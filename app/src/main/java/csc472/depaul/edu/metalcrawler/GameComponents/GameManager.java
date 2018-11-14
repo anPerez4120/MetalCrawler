@@ -50,10 +50,11 @@ public class GameManager {
 
         environmentList.add(new Environment(view,w,h));
         currentEnvironment++;
-        environmentList.get(currentEnvironment).PopulateTiles(cellAuto.GenerateMap(w,h));
+
 
         player =  new Player(view);
-        environmentList.get(currentEnvironment).PopulateEnemies(0,null);
+        environmentList.get(currentEnvironment).PopulateTiles(cellAuto,w,h);
+        // environmentList.get(currentEnvironment).PopulateEnemies(0,null);
 
         view.invalidate();
     }
@@ -84,7 +85,14 @@ public class GameManager {
 
     public void GenerateNewMap()
     {
-        environmentList.get(currentEnvironment).PopulateTiles(cellAuto.GenerateMap(w,h));
+        for (int i=0; i< actors.size(); i++)
+        {
+            if (actors.get(i).GetType() == EntityType.ENEMY)
+            {
+                ((Enemy) actors.get(i)).Recycle();
+            }
+        }
+        environmentList.get(currentEnvironment).PopulateTiles(cellAuto,w,h);
     }
 
 

@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 GameManager.Instance().GetPlayer().MoveDown();
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
-                sendNotification(view);
+               // sendNotification(view);
 
             }
         });

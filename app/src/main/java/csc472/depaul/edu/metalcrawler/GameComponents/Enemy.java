@@ -33,6 +33,7 @@ public class Enemy extends Actor {
 
     public void Recycle()
     {
+        GameManager.Instance().GetCurrentEnvironment().HookUpTile(x,y,-1,-1,this);
         EnemyFactory.Instance().ReturnEnemy(this);
     }
 

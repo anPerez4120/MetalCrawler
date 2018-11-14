@@ -40,4 +40,10 @@ public class Door extends Entity{ // Door is an entity -- actors can touch it --
     {
         drawLayer = 1;
     }
+
+    public void Recycle()
+    {
+        GameManager.Instance().GetCurrentEnvironment().HookUpTile(x,y,-1,-1,this);
+        DoorFactory.Instance().ReturnDoor(this);
+    }
 }

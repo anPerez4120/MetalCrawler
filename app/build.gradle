@@ -17,11 +17,15 @@ repositories {
 }
 
 android {
+    signingConfigs {
+        Uh {
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "csc472.depaul.edu.metalcrawler"
 
-        manifestPlaceholders = [onesignal_app_id: "d8500e9c-63e5-4c31-bf3b-a3e4a341cabf",
+        manifestPlaceholders = [onesignal_app_id               : "d8500e9c-63e5-4c31-bf3b-a3e4a341cabf",
                                 onesignal_google_project_number: "REMOTE"
         ]
 
@@ -40,15 +44,14 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-//    added for Push Notifications
+    //    added for Push Notifications
     implementation 'com.onesignal:OneSignal:[3.9.1, 3.99.99]'
-
     //Firebase Push notifications
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'

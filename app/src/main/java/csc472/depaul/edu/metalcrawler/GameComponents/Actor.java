@@ -33,7 +33,7 @@ public class Actor extends Entity implements IMoving, IDamage {
 
         if (tile == null) // We dont care about null tiles rn
         {
-            Move(dx,dy);
+            // Move(dx,dy);
         }
         else {
             Entity entity = tile.GetEntity();
