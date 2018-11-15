@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import csc472.depaul.edu.metalcrawler.GameComponents.GameManager;
@@ -43,6 +45,7 @@ public class DrawTest extends View{
         mPiePaint.setTextSize(mTextHeight);
         bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.andremad_display_bmp);
         go = new DrawTest_GO(128,128,this);
+
     }
 
     DrawTest_GO go;
@@ -50,6 +53,20 @@ public class DrawTest extends View{
     {
         this.go = go;
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent e)
+    {
+        switch(e.getAction())
+        {
+
+            case MotionEvent.ACTION_DOWN:
+                Log.d("Blurb","Blurb");
+                break;
+        }
+        return false;
+    }
+
 
     public void Update()
     {
