@@ -10,6 +10,7 @@ import csc472.depaul.edu.metalcrawler.GameComponents.Player;
 public class GameActivity extends AppCompatActivity {
 
     Player player;
+    private GameManager gameManager;
 
     @Override
     protected void onCreate(Bundle savedInstance) {
@@ -19,12 +20,17 @@ public class GameActivity extends AppCompatActivity {
 
         System.out.println("ONCREATE-------------------");
 
-        GameManager.Instance().GameStart(this,findViewById(R.id.drawTest));
+        if (savedInstance != null)
+            gameManager = savedInstance.getParcelable("GameManager");
+        else {
+            gameManager = GameManager.Instance();
+            gameManager.GameStart(this, findViewById(R.id.drawTest));
+        }
 
         findViewById(R.id.move_left).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameManager.Instance().GetPlayer().MoveLeft();
+                gameManager.GetPlayer().MoveLeft();
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
 
@@ -33,7 +39,7 @@ public class GameActivity extends AppCompatActivity {
         findViewById(R.id.move_right).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameManager.Instance().GetPlayer().MoveRight();
+                gameManager.GetPlayer().MoveRight();
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
 
@@ -42,7 +48,7 @@ public class GameActivity extends AppCompatActivity {
         findViewById(R.id.move_up).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameManager.Instance().GetPlayer().MoveUp();
+                gameManager.GetPlayer().MoveUp();
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
 
@@ -51,12 +57,21 @@ public class GameActivity extends AppCompatActivity {
         findViewById(R.id.move_down).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameManager.Instance().GetPlayer().MoveDown();
+                gameManager.GetPlayer().MoveDown();
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
             }
         });
 
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable("GameManager", gameManager);
+    }
+
+
 
 }

@@ -2,6 +2,8 @@ package csc472.depaul.edu.metalcrawler.GameComponents;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ import java.util.List;
 import csc472.depaul.edu.metalcrawler.GameComponents.CellularAutomata.CellularAutomata;
 import csc472.depaul.edu.metalcrawler.R;
 
-public class GameManager {
+public class GameManager implements Parcelable {
     // Android Objects
     Context context;
     View view;
@@ -27,6 +29,29 @@ public class GameManager {
     Player player;
     // Singleton
     private static GameManager instance;
+
+    protected GameManager(Parcel in) {
+        w = in.readInt();
+        h = in.readInt();
+        currentEnvironment = in.readInt();
+    }
+
+    public static final Creator<GameManager> CREATOR = new Creator<GameManager>() {
+        @Override
+        public GameManager createFromParcel(Parcel in) {
+            return new GameManager(in);
+        }
+
+        @Override
+        public GameManager[] newArray(int size) {
+            return new GameManager[size];
+        }
+    };
+
+    private GameManager() {
+
+    }
+
     public static GameManager Instance()
     {
         if (instance == null) {
@@ -155,5 +180,17 @@ public class GameManager {
     public Environment GetCurrentEnvironment()
     {
         return environmentList.get(currentEnvironment);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(w);
+        dest.writeInt(h);
+        dest.writeInt(currentEnvironment);
     }
 }

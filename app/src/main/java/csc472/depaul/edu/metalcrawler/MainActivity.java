@@ -5,11 +5,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Instrumentation;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
@@ -46,6 +49,20 @@ public class MainActivity extends AppCompatActivity {
         // Method 2 : invalidate a view to cause redrawing
         // drawback : less control ? and no realtime
         setContentView(R.layout.activity_main);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            NotificationChannel mChannel =
+                    new NotificationChannel(ChannelConstants.CHANNEL_ID, ChannelConstants.CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            mChannel.setDescription(ChannelConstants.CHANNEL_DESCRIPTION);
+            mChannel.enableLights(true);
+            mChannel.setLightColor(Color.RED);
+            mChannel.enableVibration(true);
+
+            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
+            mNotificationManager.createNotificationChannel(mChannel);
+        }
 
         System.out.println("ONCREATE-------------------");
 
@@ -104,5 +121,4 @@ public class MainActivity extends AppCompatActivity {
     public MainActivity getMainActivity(){
         return this;
     }
-
 }
