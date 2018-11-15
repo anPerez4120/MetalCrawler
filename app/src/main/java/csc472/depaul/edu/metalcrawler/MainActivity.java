@@ -5,11 +5,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Instrumentation;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
@@ -47,6 +50,20 @@ public class MainActivity extends AppCompatActivity {
         // drawback : less control ? and no realtime
         setContentView(R.layout.activity_main);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            NotificationChannel mChannel =
+                    new NotificationChannel(ChannelConstants.CHANNEL_ID, ChannelConstants.CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            mChannel.setDescription(ChannelConstants.CHANNEL_DESCRIPTION);
+            mChannel.enableLights(true);
+            mChannel.setLightColor(Color.RED);
+            mChannel.enableVibration(true);
+
+            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+
+            mNotificationManager.createNotificationChannel(mChannel);
+        }
+
         System.out.println("ONCREATE-------------------");
 
         Button settingsActivity = findViewById(R.id.settingsButton);
@@ -54,11 +71,23 @@ public class MainActivity extends AppCompatActivity {
             settingsActivity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                    MainActivity.this.startActivity(intent);
+                    Intent intent = new Intent(getMainActivity(), SettingsActivity.class);
+                    getMainActivity().startActivity(intent);
                 }
             });
         }
+
+        Button gameActivity = findViewById(R.id.gameButton);
+        if(gameActivity != null){
+            gameActivity.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), GameActivity.class);
+                    getMainActivity().startActivity(intent);
+                }
+            });
+        }
+
 
         // Used for online notifications, not sure why it is not working
         OneSignal.startInit(this)
@@ -68,57 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
         notification = new NotificationCompat.Builder(this);
         notification.setAutoCancel(true);
-
-
-        findViewById(R.id.felipe).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GameManager.Instance().GenerateNewMap();
-                DrawTest view = findViewById( R.id.drawTest);
-                view.Update();
-
-            }
-        });
-        //*/
-        GameManager.Instance().GameStart(this,findViewById(R.id.drawTest));
-
-        findViewById(R.id.move_left).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GameManager.Instance().GetPlayer().MoveLeft();
-                DrawTest view = findViewById( R.id.drawTest);
-                view.Update();
-
-            }
-        });
-        findViewById(R.id.move_right).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GameManager.Instance().GetPlayer().MoveRight();
-                DrawTest view = findViewById( R.id.drawTest);
-                view.Update();
-
-            }
-        });
-        findViewById(R.id.move_up).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GameManager.Instance().GetPlayer().MoveUp();
-                DrawTest view = findViewById( R.id.drawTest);
-                view.Update();
-
-            }
-        });
-        findViewById(R.id.move_down).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GameManager.Instance().GetPlayer().MoveDown();
-                DrawTest view = findViewById( R.id.drawTest);
-                view.Update();
-               // sendNotification(view);
-
-            }
-        });
 
     }
 
@@ -140,4 +118,7 @@ public class MainActivity extends AppCompatActivity {
         nm.notify(uniqueID, notification.build());
     }
 
+    public MainActivity getMainActivity(){
+        return this;
+    }
 }

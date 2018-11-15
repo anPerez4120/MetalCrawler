@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "395464929640-nvihheno5gi5m9ivviahne9vr720ke9f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "csc472.depaul.edu.metalcrawler",
+            "certificate_hash": "4a060c85c3d5e15a9d1290ef8ccd1b53c386c68e"
+          }
+        },
+        {
           "client_id": "395464929640-oe4qnq5n3n0g5j418ua49bi0bcnb2e7j.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "395464929640-oe4qnq5n3n0g5j418ua49bi0bcnb2e7j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
