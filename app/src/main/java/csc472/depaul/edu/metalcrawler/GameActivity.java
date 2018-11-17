@@ -1,5 +1,6 @@
 package csc472.depaul.edu.metalcrawler;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.Toast;
 
 import csc472.depaul.edu.metalcrawler.GameComponents.GameManager;
 import csc472.depaul.edu.metalcrawler.GameComponents.Player;
+import csc472.depaul.edu.metalcrawler.GameComponents.UI.HealthBar;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -14,6 +16,7 @@ public class GameActivity extends AppCompatActivity {
     private GameManager gameManager;
     private long backPressedTime;
     private Toast backToast;
+    HealthBar healthBar;
 
     @Override
     protected void onCreate(Bundle savedInstance) {
@@ -22,6 +25,10 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         System.out.println("ONCREATE-------------------");
+
+        healthBar = findViewById(R.id.healthBar);
+        //To show the damage that has been dealt i made the background red
+        healthBar.setBackgroundColor(Color.RED);
 
         if (savedInstance != null)
             gameManager = savedInstance.getParcelable("GameManager");
@@ -36,7 +43,7 @@ public class GameActivity extends AppCompatActivity {
                 gameManager.GetPlayer().MoveLeft();
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
-
+                healthBar.invalidate();
             }
         });
         findViewById(R.id.move_right).setOnClickListener(new View.OnClickListener() {
@@ -45,7 +52,7 @@ public class GameActivity extends AppCompatActivity {
                 gameManager.GetPlayer().MoveRight();
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
-
+                healthBar.invalidate();
             }
         });
         findViewById(R.id.move_up).setOnClickListener(new View.OnClickListener() {
@@ -54,7 +61,7 @@ public class GameActivity extends AppCompatActivity {
                 gameManager.GetPlayer().MoveUp();
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
-
+                healthBar.invalidate();
             }
         });
         findViewById(R.id.move_down).setOnClickListener(new View.OnClickListener() {
@@ -63,6 +70,7 @@ public class GameActivity extends AppCompatActivity {
                 gameManager.GetPlayer().MoveDown();
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
+                healthBar.invalidate();
             }
         });
 
@@ -71,7 +79,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        gameManager.GameEnd();
+        gameManager.saveHighScorePreference();
     }
 
     @Override

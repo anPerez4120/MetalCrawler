@@ -211,7 +211,7 @@ public class GameManager implements Parcelable {
         this.score += num;
     }
 
-    private void saveHighScorePreference(){
+    public void saveHighScorePreference(){
         SharedPreferences sp = context.getSharedPreferences("HIGH_SCORE", Activity.MODE_PRIVATE);
         if (sp != null){
             //get the saved highscore, default will be 0
