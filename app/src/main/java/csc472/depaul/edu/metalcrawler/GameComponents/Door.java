@@ -29,7 +29,7 @@ public class Door extends Entity{ // Door is an entity -- actors can touch it --
     public void OnTouched(Actor other)
     {
         // if other is player
-        if (other.GetType() == EntityType.PLAYER)
+        if (other.getClass() == Player.class)
         {
             GameManager.Instance().GenerateNewMap();
         }

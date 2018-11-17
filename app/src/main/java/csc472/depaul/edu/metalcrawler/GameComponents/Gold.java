@@ -31,6 +31,10 @@ public class Gold extends Entity{
     @Override
     public void OnTouched(Actor other)
     {
+        //add 100 points to the score if the player touches the gold
+        if(other.getClass() == Player.class){
+            GameManager.Instance().addToScore(100);
+        }
         Recycle();
     }
 
