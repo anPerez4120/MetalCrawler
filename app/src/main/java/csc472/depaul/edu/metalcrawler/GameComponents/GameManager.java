@@ -8,6 +8,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import csc472.depaul.edu.metalcrawler.GameComponents.CellularAutomata.CellularAutomata;
@@ -206,6 +211,9 @@ public class GameManager implements Parcelable {
         dest.writeInt(currentEnvironment);
     }
 
+    public int getScore(){
+        return this.score;
+    }
 
     public void addToScore(int num){
         this.score += num;
@@ -222,6 +230,26 @@ public class GameManager implements Parcelable {
                     //put the score in the preferences
                     editor.putInt("highscore", score);
                     editor.commit();
+
+                    try {
+                        File sdCard = android.os.Environment.getExternalStorageDirectory();
+                        //Create a directory to store the file
+                        File dir = new File(sdCard.getAbsolutePath() + "/csc472/MetalCrawler");
+                        dir.mkdirs();
+
+                        File file = new File(dir, "/highscore.txt");
+                        file.createNewFile();
+
+                        FileOutputStream outputFile = new FileOutputStream(file);
+                        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputFile);
+                        outputStreamWriter.append(score + "");
+                        outputStreamWriter.close();
+                        outputFile.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

@@ -34,6 +34,7 @@ public class Gold extends Entity{
         //add 100 points to the score if the player touches the gold
         if(other.getClass() == Player.class){
             GameManager.Instance().addToScore(100);
+            GameManager.Instance().saveHighScorePreference();
         }
         Recycle();
     }

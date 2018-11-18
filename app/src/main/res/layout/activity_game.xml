@@ -11,10 +11,43 @@
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
-        <csc472.depaul.edu.metalcrawler.GameComponents.UI.HealthBar
-            android:id="@+id/healthBar"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <csc472.depaul.edu.metalcrawler.GameComponents.UI.HealthBar
+                android:id="@+id/healthBar"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_weight=".75"
+                android:layout_marginRight="10dp"
+                android:background="@color/black"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight=".25">
+
+                <TextView
+                    android:id="@+id/highScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="High Score: "/>
+
+                <TextView
+                    android:id="@+id/currentScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Current Score: "/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
 
         <csc472.depaul.edu.metalcrawler.DrawTest
             android:id="@+id/drawTest"
@@ -41,7 +74,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.965" />
+        app:layout_constraintVertical_bias="0.97" />
 
     <Button
         android:id="@+id/move_up"
@@ -52,7 +85,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.758" />
+        app:layout_constraintVertical_bias="0.77" />
 
     <Button
         android:id="@+id/move_left"
@@ -60,11 +93,11 @@
         android:layout_height="wrap_content"
         android:text="@string/move_Left"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.31"
+        app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.861" />
+        app:layout_constraintVertical_bias="0.87" />
 
     <Button
         android:id="@+id/move_right"
@@ -72,10 +105,10 @@
         android:layout_height="wrap_content"
         android:text=">"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.692"
+        app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.861" />
+        app:layout_constraintVertical_bias="0.87" />
 
 </android.support.constraint.ConstraintLayout>
