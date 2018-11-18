@@ -1,6 +1,7 @@
 package csc472.depaul.edu.metalcrawler.GameComponents;
 
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.View;
 
 import csc472.depaul.edu.metalcrawler.R;
@@ -17,6 +18,7 @@ public class Player extends Actor {
         bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.player);
         GameManager.Instance().SetPlayer(this);
         type = EntityType.PLAYER;
+        description = "This is you! A dusty, dirty adventurer seeking gold cogs to sell on the black market.";
     }
 
     @Override
@@ -49,4 +51,11 @@ public class Player extends Actor {
         drawLayer = 1;
     }
 
+
+    @Override
+    public void PrintEntity()
+    {
+        System.out.println("Player");
+        Log.d("Player","Player");
+    }
 }
