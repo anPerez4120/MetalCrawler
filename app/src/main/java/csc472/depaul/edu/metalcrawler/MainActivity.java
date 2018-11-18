@@ -10,6 +10,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
@@ -22,8 +23,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.onesignal.OneSignal;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 import csc472.depaul.edu.metalcrawler.GameComponents.GameManager;
 import csc472.depaul.edu.metalcrawler.GameComponents.Player;
@@ -31,11 +41,10 @@ import csc472.depaul.edu.metalcrawler.GameComponents.Player;
 public class MainActivity extends AppCompatActivity {
 
     Player player;
-//    For notifications (w/o internet)
-    NotificationCompat.Builder notification;
-    private static final int uniqueID = 164737;
-    private static final String tag = "MainActivity";
-    private  static final int requestCode = 1;
+    TextView highScore;
+    int score = 0;
+    SharedPreferences sp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +58,38 @@ public class MainActivity extends AppCompatActivity {
         // Method 2 : invalidate a view to cause redrawing
         // drawback : less control ? and no realtime
         setContentView(R.layout.activity_main);
+
+        requestWriteToExternalStoragePermission();
+
+        File sdCard = android.os.Environment.getExternalStorageDirectory();
+        File file = new File(sdCard, "csc472/MetalCrawler/highscore.txt");
+        String sdScore = "";
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            sdScore = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //
+        int sdScoreNum = 0;
+        if(!sdScore.isEmpty()){
+            sdScoreNum = Integer.valueOf(sdScore);
+        }
+
+        sp = this.getSharedPreferences("HIGH_SCORE", Activity.MODE_PRIVATE);
+        int score = sp.getInt("highscore", 0);
+
+        if (score > sdScoreNum){
+            saveToSD(score + "");
+        } else {
+            score = sdScoreNum;
+            saveHighScorePreference(score);
+        }
+
+        highScore = findViewById(R.id.highScore);
+        highScore.setText("High Score: " + score);
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -88,34 +129,75 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-
-        // Used for online notifications, not sure why it is not working
-        OneSignal.startInit(this)
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
-
-        notification = new NotificationCompat.Builder(this);
-        notification.setAutoCancel(true);
-
     }
 
-    public void sendNotification(View view){
+    @Override
+    protected void onStart() {
+        super.onStart();
+        score = sp.getInt("highscore", 0);
 
-        notification.setSmallIcon(R.drawable.player);
-        notification.setTicker("Play My Game");
-        notification.setWhen(System.currentTimeMillis());
-        notification.setContentTitle("Metal Crawler");
-        notification.setContentText("Crawl through the metsl metal jungle!!!");
+        highScore = findViewById(R.id.highScore);
+        highScore.setText("High Score: " + score);
+    }
 
-        Intent intent = new Intent(this, MainActivity.class);
-        //Gives phone access to the app
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        notification.setContentIntent(pendingIntent);
+    //save the highscore to preferences
+    private void saveHighScorePreference(int num){
+        SharedPreferences sp = getMainActivity().getSharedPreferences("HIGH_SCORE", Activity.MODE_PRIVATE);
+        if (sp != null){
+            //get the saved highscore, default will be 0
+            SharedPreferences.Editor editor = sp.edit();
+            if (editor != null){
+                //put in the score in preferences
+                editor.putInt("highscore", num);
+                editor.commit();
+            }
+        }
+    }
 
-        //Issues Notification
-        NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        nm.notify(uniqueID, notification.build());
+    //save the highScore to the sdCard
+    private void saveToSD(String sNum){
+        try{
+            requestWriteToExternalStoragePermission();
+
+            File sdCard = android.os.Environment.getExternalStorageDirectory();
+            //Create a directory to store the file
+            File dir = new File(sdCard.getAbsolutePath() + "/csc472/MetalCrawler");
+            dir.mkdirs();
+
+            File file = new File(dir , "/highscore.txt");
+            file.createNewFile();
+
+            FileOutputStream outputFile = new FileOutputStream(file);
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputFile);
+            outputStreamWriter.append((sNum));
+            outputStreamWriter.close();
+            outputFile.close();
+
+        } catch (IOException e) {
+            //See what the error is
+            Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
+
+    private void requestWriteToExternalStoragePermission()
+    {
+        int writePermission = ActivityCompat.checkSelfPermission(getMainActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (writePermission != PackageManager.PERMISSION_GRANTED)
+        {
+            int REQUEST_EXTERNAL_STORAGE = 1;
+
+            String[] PERMISSIONS_STORAGE = {
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            };
+
+            ActivityCompat.requestPermissions(
+                    getMainActivity(),
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
     }
 
     public MainActivity getMainActivity(){

@@ -21,9 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Notifications"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.645" />
+        app:layout_constraintTop_toBottomOf="@id/permissionButton"/>
 </android.support.constraint.ConstraintLayout>

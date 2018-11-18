@@ -10,6 +10,7 @@ public class Player extends Actor {
     float momentum = 1;
     int ldx = 0;
     int ldy = 0;
+    boolean riposte;
 
     public Player(View view) {
         super(view);
@@ -26,10 +27,23 @@ public class Player extends Actor {
     {
         if (ldx == dx && ldy == dy)
         {
+            //if they are riposted then make take them out of it and reset momentum
+            if(riposte){
+                momentum = 1;
+                riposte = false;
+            }
             momentum += 1;
-        } else
+        }
+        //riposte, if the player moves in the opposite direction of where they were initially going then give them some damage modification in the form of momentum
+        else if((ldx == dx * -1 && ldy == dy) || (ldx == dx && ldy == dy * -1)){
+            momentum = (float) 1.5;
+            //put them in the riposte position
+            riposte = true;
+        }
+        else
         {
             momentum = 1;
+            riposte = false;
         }
 
         ldx = dx;

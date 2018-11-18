@@ -1,14 +1,23 @@
 package csc472.depaul.edu.metalcrawler.GameComponents;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.View;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import csc472.depaul.edu.metalcrawler.GameComponents.CellularAutomata.CellularAutomata;
+import csc472.depaul.edu.metalcrawler.MainActivity;
+import csc472.depaul.edu.metalcrawler.R;
 
 public class GameManager implements Parcelable {
     // Android Objects
@@ -25,6 +34,9 @@ public class GameManager implements Parcelable {
     List<List<Sprite>> sprites;
     List<Actor> actors;
     List<Entity> entities;
+
+    //used for keeping track of current score
+    int score = 0;
 
     Player player;
     // Singleton
@@ -88,6 +100,12 @@ public class GameManager implements Parcelable {
     public void GameEnd()
     {
         // TODO
+        saveHighScorePreference();
+        instance = new GameManager();
+        instance.environmentList = new ArrayList<Environment>();
+        instance.cellAuto = new CellularAutomata();
+        instance.sprites = new ArrayList<List<Sprite>>();
+        instance.actors = new ArrayList<Actor>();
     }
 
     public void PerformTurn()
@@ -216,4 +234,48 @@ public class GameManager implements Parcelable {
     {
         return entities;
     }
+    public int getScore(){
+        return this.score;
+    }
+
+    public void addToScore(int num){
+        this.score += num;
+    }
+
+    public void saveHighScorePreference(){
+        SharedPreferences sp = context.getSharedPreferences("HIGH_SCORE", Activity.MODE_PRIVATE);
+        if (sp != null){
+            //get the saved highscore, default will be 0
+            int savedHighScore = sp.getInt("highscore", 0);
+            SharedPreferences.Editor editor = sp.edit();
+            if (editor != null){
+                if (savedHighScore < score) {
+                    //put the score in the preferences
+                    editor.putInt("highscore", score);
+                    editor.commit();
+
+                    try {
+                        File sdCard = android.os.Environment.getExternalStorageDirectory();
+                        //Create a directory to store the file
+                        File dir = new File(sdCard.getAbsolutePath() + "/csc472/MetalCrawler");
+                        dir.mkdirs();
+
+                        File file = new File(dir, "/highscore.txt");
+                        file.createNewFile();
+
+                        FileOutputStream outputFile = new FileOutputStream(file);
+                        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputFile);
+                        outputStreamWriter.append(score + "");
+                        outputStreamWriter.close();
+                        outputFile.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
 }
