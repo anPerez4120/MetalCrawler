@@ -32,6 +32,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 gameManager.GetPlayer().MoveLeft();
                 DrawTest view = findViewById( R.id.drawTest);
+                view.ResetDrawState();
                 view.Update();
 
             }
@@ -41,6 +42,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 gameManager.GetPlayer().MoveRight();
                 DrawTest view = findViewById( R.id.drawTest);
+                view.ResetDrawState();
                 view.Update();
 
             }
@@ -50,6 +52,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 gameManager.GetPlayer().MoveUp();
                 DrawTest view = findViewById( R.id.drawTest);
+                view.ResetDrawState();
                 view.Update();
 
             }
@@ -59,6 +62,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 gameManager.GetPlayer().MoveDown();
                 DrawTest view = findViewById( R.id.drawTest);
+                view.ResetDrawState();
                 view.Update();
             }
         });

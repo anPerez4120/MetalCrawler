@@ -9,7 +9,6 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 import csc472.depaul.edu.metalcrawler.GameComponents.CellularAutomata.CellularAutomata;
-import csc472.depaul.edu.metalcrawler.R;
 
 public class GameManager implements Parcelable {
     // Android Objects
@@ -114,7 +113,7 @@ public class GameManager implements Parcelable {
         {
             if (actors.get(i).GetType() == EntityType.ENEMY)
             {
-                ((Enemy) actors.get(i)).Recycle();
+                ((IEnemy) actors.get(i)).Recycle();
             }
         }
         environmentList.get(currentEnvironment).PopulateTiles(cellAuto,w,h);
@@ -193,4 +192,6 @@ public class GameManager implements Parcelable {
         dest.writeInt(h);
         dest.writeInt(currentEnvironment);
     }
+
+    public List<Actor> GetActors() {return actors;}
 }

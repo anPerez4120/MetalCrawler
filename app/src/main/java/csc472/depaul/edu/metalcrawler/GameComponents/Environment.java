@@ -1,6 +1,5 @@
 package csc472.depaul.edu.metalcrawler.GameComponents;
 
-import android.graphics.Canvas;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -48,8 +47,20 @@ public class Environment {
         {
             for (int y=0; y < height; y++)
             {
-                if (tileGrid[x][y] != null)
+                if (tileGrid[x][y] != null) {
+                    if (tileGrid[x][y].GetEntity() != null)
+                    {
+                        /*
+                        if (tileGrid[x][y].GetEntity().type == EntityType.GOLD) {
+                            ((Gold)tileGrid[x][y].GetEntity()).Recycle();
+                        }
+                        if (tileGrid[x][y].GetEntity().type == EntityType.DOOR) {
+                            ((Door)tileGrid[x][y].GetEntity()).Recycle();
+                        }
+                        */
+                    }
                     tileGrid[x][y].Recycle();
+                }
             }
         }
 
@@ -82,7 +93,21 @@ public class Environment {
         for (int i=0; i<3;i++)
         {
             tile = tempTiles.get(random.nextInt(tempTiles.size()));
-            tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetEnemy(tile.x,tile.y));
+
+            float r = random.nextFloat();
+            if (r > 0.66f)
+            {
+                tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetJunkie(tile.x,tile.y));
+            }
+            else if (r > 0.33f)
+            {
+                tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetBull(tile.x,tile.y));
+            }
+            else
+            {
+                tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetAlchemist(tile.x,tile.y));
+            }
+
             tempTiles.remove(tile);
 
             tile = tempTiles.get(random.nextInt(tempTiles.size()));
@@ -102,9 +127,9 @@ public class Environment {
 
     public void PopulateEnemies(int depth, List<Tile> tiles)
     {
-        EnemyFactory.Instance().GetEnemy(3,3);
-        EnemyFactory.Instance().GetEnemy(6,3);
-        EnemyFactory.Instance().GetEnemy(3,9);
+        EnemyFactory.Instance().GetJunkie(3,3);
+        EnemyFactory.Instance().GetJunkie(6,3);
+        EnemyFactory.Instance().GetJunkie(3,9);
     }
 
     public void HookUpTile(int oldX, int oldY, int newX, int newY, Entity entity)

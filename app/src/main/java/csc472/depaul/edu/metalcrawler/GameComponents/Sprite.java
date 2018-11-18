@@ -16,7 +16,7 @@ public class Sprite {
     int y;
 
     int drawLayer = 0;
-    final float TILE_SIZE = 64.0f;
+    public static final float TILE_SIZE = 64.0f;
 
     public Sprite(View view)
     {
@@ -67,4 +67,5 @@ public class Sprite {
         this.y = y;
     }
 
+    public Bitmap GetBitmap() {return bitmap;}
 }

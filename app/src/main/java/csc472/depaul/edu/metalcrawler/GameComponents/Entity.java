@@ -1,6 +1,7 @@
 package csc472.depaul.edu.metalcrawler.GameComponents;
 
 
+import android.util.Log;
 import android.view.View;
 
 public class Entity extends Sprite {
@@ -46,4 +47,9 @@ public class Entity extends Sprite {
         GameManager.Instance().GetCurrentEnvironment().HookUpTile(ox,oy,x,y,this);
     }
 
+    public void PrintEntity()
+    {
+        System.out.println("UH");
+        Log.d("UH","IH");
+    }
 }
