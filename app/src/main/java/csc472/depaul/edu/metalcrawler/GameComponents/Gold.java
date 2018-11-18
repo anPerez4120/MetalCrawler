@@ -11,6 +11,7 @@ public class Gold extends Entity{
         super(view);
         bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.gold);
         type = EntityType.GOLD;
+        Init();
     }
 
     public Gold(View view, int x, int y)
@@ -19,13 +20,19 @@ public class Gold extends Entity{
         bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.gold);
         type = EntityType.GOLD;
         SetPosition(x,y);
-
+        Init();
     }
 
+    void Init()
+    {
+        description = "This shiny gold cog is the object of your adventure! Grab it to increase your score.";
+    }
+
+    @Override
     public void Recycle()
     {
         GameManager.Instance().GetCurrentEnvironment().HookUpTile(x,y,-1,-1,this);
-        GoldFactory.Instance().ReturnGold(this);
+        EntityFactory.Instance().ReturnGold(this);
     }
 
     @Override

@@ -9,19 +9,25 @@ public class Door extends Entity{ // Door is an entity -- actors can touch it --
 
     public Door(View view) {
         super(view);
-        isSolid = false;
+        isSolid = true;
         type = EntityType.DOOR;
         bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.door);
+        Init();
+    }
+
+    void Init()
+    {
+        description = "This is your objective -- walk to this door to descend to the lower levels of this dungeon.";
     }
 
     public Door(View view,int x,int y)
     {
         super(view);
-        isSolid = false;
+        isSolid = true;
         type = EntityType.DOOR;
         SetPosition(x,y);
         bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.door);
-
+        Init();
     }
 
 
@@ -41,6 +47,7 @@ public class Door extends Entity{ // Door is an entity -- actors can touch it --
         drawLayer = 1;
     }
 
+    @Override
     public void Recycle()
     {
         GameManager.Instance().GetCurrentEnvironment().HookUpTile(x,y,-1,-1,this);

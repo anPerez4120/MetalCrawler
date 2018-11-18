@@ -1,24 +1,32 @@
 package csc472.depaul.edu.metalcrawler.GameComponents;
 
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.View;
 
 import java.util.Random;
 
 import csc472.depaul.edu.metalcrawler.R;
 
-public class Enemy extends Actor {
+public class Junkie extends Actor implements IEnemy{
     int move = 0;
-    public Enemy(View view) {
+    public Junkie(View view) {
         super(view);
         isSolid = true;
         health=20;
         health_max=20;
         bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.junkie);
         type = EntityType.ENEMY;
+        Init();
     }
 
-    public Enemy(View view, int x, int y)
+    void Init()
+    {
+        description = "A mangey junkie looking for normal-people flesh to eat. Not particularly dangerous, but do meet them with deadly force.";
+    }
+
+
+    public Junkie(View view, int x, int y)
     {
         super(view);
         SetPosition(x,y);
@@ -29,12 +37,14 @@ public class Enemy extends Actor {
 
         bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.junkie);
         type = EntityType.ENEMY;
+        Init();
     }
 
+    @Override
     public void Recycle()
     {
         GameManager.Instance().GetCurrentEnvironment().HookUpTile(x,y,-1,-1,this);
-        EnemyFactory.Instance().ReturnEnemy(this);
+        EnemyFactory.Instance().ReturnJunkie(this);
     }
 
     @Override
@@ -89,5 +99,12 @@ public class Enemy extends Actor {
                     MoveLeft();
             }
         }
+    }
+
+    @Override
+    public void PrintEntity()
+    {
+        System.out.println("JUnkie");
+        Log.d("Junkie","Junkie");
     }
 }

@@ -8,6 +8,7 @@ public class Actor extends Entity implements IMoving, IDamage {
 
     float damage = 10;
 
+    public Actor(){}
     public Actor(View view) {
         super(view);
         GameManager.Instance().AddActor(this);

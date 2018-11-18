@@ -5,7 +5,8 @@ public enum EntityType {
     PLAYER (0x1),
     ENEMY (0x2),
     DOOR (0x4),
-    GOLD (0x5);
+    GOLD (0x5),
+    POTION(0x6);
 
     final int i;
     EntityType(int i) {

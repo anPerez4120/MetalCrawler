@@ -21,12 +21,14 @@ public class DoorFactory {
         if (doors.empty())
         {
             Door door = new Door(GameManager.Instance().GetView(),x,y);
+            GameManager.Instance().AddEntity(door);
             return door;
         }
         else
         {
             Door door= doors.pop();
             GameManager.Instance().AddSprite(door);
+            GameManager.Instance().AddEntity(door);
             door.SetPosition(x,y);
             return door;
         }
@@ -35,6 +37,7 @@ public class DoorFactory {
     public void ReturnDoor(Door door)
     {
         GameManager.Instance().RemoveSprite(door);
+        GameManager.Instance().RemoveEntity(door);
         doors.push(door);
     }
 }
