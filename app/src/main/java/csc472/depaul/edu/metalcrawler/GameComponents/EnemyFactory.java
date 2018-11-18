@@ -7,6 +7,8 @@ public class EnemyFactory {
     Stack<Bull> bulls;
     Stack<Alchemist> alchemists;
 
+    Stack<Fireball> fireballs;
+
     private static EnemyFactory instance;
     public static EnemyFactory Instance()
     {
@@ -15,6 +17,7 @@ public class EnemyFactory {
             instance.junkies = new Stack<Junkie>();
             instance.bulls = new Stack<Bull>();
             instance.alchemists = new Stack<Alchemist>();
+            instance.fireballs = new Stack<Fireball>();
         }
         return instance;
     }
@@ -65,7 +68,6 @@ public class EnemyFactory {
 
     public void ReturnBull(Bull bull)
     {
-
         GameManager.Instance().RemoveSprite(bull);
         GameManager.Instance().RemoveActor(bull);
         bulls.push(bull);
@@ -94,6 +96,32 @@ public class EnemyFactory {
         GameManager.Instance().RemoveSprite(alchemist);
         GameManager.Instance().RemoveActor(alchemist);
         alchemists.push(alchemist);
+    }
+
+
+    public Fireball GetFireball(int x, int y)
+    {
+        if (fireballs.empty())
+        {
+            Fireball fireball = new Fireball(GameManager.Instance().GetView(),x,y);
+            return fireball;
+        }
+        else
+        {
+            Fireball fireball = fireballs.pop();
+            fireball.SetFreezeUpdate(true);
+            GameManager.Instance().AddSprite(fireball);
+            GameManager.Instance().AddActor(fireball);
+            fireball.SetPosition(x,y);
+            return fireball;
+        }
+    }
+
+    public void ReturnFireball(Fireball fireball)
+    {
+        GameManager.Instance().RemoveSprite(fireball);
+        GameManager.Instance().RemoveActor(fireball);
+        fireballs.push(fireball);
     }
 
 

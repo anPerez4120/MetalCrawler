@@ -44,6 +44,7 @@ public class Bull extends Actor implements  IEnemy {
         Init();
     }
 
+    @Override
     public void Recycle()
     {
         GameManager.Instance().GetCurrentEnvironment().HookUpTile(x,y,-1,-1,this);

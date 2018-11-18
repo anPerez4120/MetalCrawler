@@ -18,6 +18,7 @@ public class Sprite {
     int drawLayer = 0;
     public static final float TILE_SIZE = 64.0f;
 
+    public Sprite(){}
     public Sprite(View view)
     {
         bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.tile);

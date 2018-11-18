@@ -90,28 +90,27 @@ public class Environment {
         tileGrid[tile.x][tile.y].SetEntity(GameManager.Instance().GetPlayer());
         tempTiles.remove(tile);
 
-        for (int i=0; i<3;i++)
-        {
+        for (int i=0; i<3;i++) {
             tile = tempTiles.get(random.nextInt(tempTiles.size()));
 
             float r = random.nextFloat();
-            if (r > 0.66f)
-            {
-                tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetJunkie(tile.x,tile.y));
-            }
-            else if (r > 0.33f)
-            {
-                tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetBull(tile.x,tile.y));
-            }
-            else
-            {
-                tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetAlchemist(tile.x,tile.y));
+            if (r > 0.66f) {
+                tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetJunkie(tile.x, tile.y));
+            } else if (r > 0.33f) {
+                tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetBull(tile.x, tile.y));
+            } else {
+                tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetAlchemist(tile.x, tile.y));
             }
 
             tempTiles.remove(tile);
 
             tile = tempTiles.get(random.nextInt(tempTiles.size()));
-            tileGrid[tile.x][tile.y].SetEntity(GoldFactory.Instance().GetGold(tile.x,tile.y));
+            r = random.nextFloat();
+            if (r > 0.5f) {
+                tileGrid[tile.x][tile.y].SetEntity(EntityFactory.Instance().GetGold(tile.x, tile.y));
+            } else {
+                tileGrid[tile.x][tile.y].SetEntity(EntityFactory.Instance().GetPotion(tile.x, tile.y));
+            }
             tempTiles.remove(tile);
         }
     }

@@ -11,6 +11,9 @@ import csc472.depaul.edu.metalcrawler.R;
 public class Alchemist extends Actor implements IEnemy {
 
     int move = 0;
+    int fireCounter;
+    AlchemistState alchemistState = AlchemistFSM.seek;
+
     public Alchemist(View view) {
         super(view);
         isSolid = true;
@@ -24,7 +27,7 @@ public class Alchemist extends Actor implements IEnemy {
 
     void Init()
     {
-        description = "A mangey junkie looking for normal-people flesh to eat. Not particularly dangerous, but do meet them with deadly force.";
+        description = "A frenzied Alchemist who huffs his own concoctions to get high.";
     }
 
 
@@ -42,6 +45,7 @@ public class Alchemist extends Actor implements IEnemy {
         Init();
     }
 
+    @Override
     public void Recycle()
     {
         GameManager.Instance().GetCurrentEnvironment().HookUpTile(x,y,-1,-1,this);
@@ -64,48 +68,25 @@ public class Alchemist extends Actor implements IEnemy {
     @Override
     public void Update()
     {
-        // move++;
-        // if (move % 2 == 0)
-        //     return;
-        Player player = GameManager.Instance().GetPlayer();
-        Random random = new Random();
-        random.setSeed(System.currentTimeMillis());
-
-        // 50% chance of aligning X first
-        if (random.nextFloat() > 0.5f)
-        {
-            if (player.GetX() > x)
-                MoveRight();
-            else if (player.GetX() < x)
-                MoveLeft();
-            else
-            {
-                if (player.GetY() < y)
-                    MoveUp();
-                else
-                    MoveDown();
-            }
-        }
-        else // Otherwise align y first
-        {
-            if (player.GetY() < y)
-                MoveUp();
-            else if (player.GetY() > y)
-                MoveDown();
-            else
-            {
-                if (player.GetX() > x)
-                    MoveRight();
-                else
-                    MoveLeft();
-            }
-        }
+        alchemistState = alchemistState.GetNextState(this);
     }
 
     @Override
     public void PrintEntity()
     {
-        System.out.println("JUnkie");
+        System.out.println("Junkie");
         Log.d("Junkie","Junkie");
     }
+
+    public void SetFire(int count)
+    {
+        this.fireCounter = count;
+    }
+
+    public void RunFire()
+    {fireCounter--;}
+
+    public boolean IsFiring()
+    {return fireCounter > 0;}
+
 }

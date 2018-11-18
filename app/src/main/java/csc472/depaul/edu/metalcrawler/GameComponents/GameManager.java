@@ -24,6 +24,7 @@ public class GameManager implements Parcelable {
 
     List<List<Sprite>> sprites;
     List<Actor> actors;
+    List<Entity> entities;
 
     Player player;
     // Singleton
@@ -59,6 +60,7 @@ public class GameManager implements Parcelable {
             instance.cellAuto = new CellularAutomata();
             instance.sprites = new ArrayList<List<Sprite>>();
             instance.actors = new ArrayList<Actor>();
+            instance.entities = new ArrayList<Entity>();
         }
 
         return instance;
@@ -113,8 +115,13 @@ public class GameManager implements Parcelable {
         {
             if (actors.get(i).GetType() == EntityType.ENEMY)
             {
-                ((IEnemy) actors.get(i)).Recycle();
+                actors.get(i).Recycle();
             }
+        }
+
+        for (int i=0; i< entities.size(); i++)
+        {
+            entities.get(i).Recycle();
         }
         environmentList.get(currentEnvironment).PopulateTiles(cellAuto,w,h);
     }
@@ -194,4 +201,19 @@ public class GameManager implements Parcelable {
     }
 
     public List<Actor> GetActors() {return actors;}
+
+    public void AddEntity(Entity entity)
+    {
+        entities.add(entity);
+    }
+
+    public void RemoveEntity(Entity entity)
+    {
+        entities.remove(entity);
+    }
+
+    public List<Entity> GetEntities()
+    {
+        return entities;
+    }
 }

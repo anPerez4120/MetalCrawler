@@ -8,6 +8,10 @@ public class Entity extends Sprite {
     boolean isSolid;
     EntityType type;
 
+    protected String description = "";
+    public String GetDescription(){return description;}
+
+    public Entity(){}
     public Entity(View view) {
         super(view);
         GameManager.Instance().GetCurrentEnvironment().HookUpTile(x,y,x,y,this);
@@ -52,4 +56,6 @@ public class Entity extends Sprite {
         System.out.println("UH");
         Log.d("UH","IH");
     }
+
+    public void Recycle(){}
 }

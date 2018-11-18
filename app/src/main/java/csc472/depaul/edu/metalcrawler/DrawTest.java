@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
@@ -20,6 +19,7 @@ import csc472.depaul.edu.metalcrawler.GameComponents.Actor;
 import csc472.depaul.edu.metalcrawler.GameComponents.Blurb;
 import csc472.depaul.edu.metalcrawler.GameComponents.DrawState;
 import csc472.depaul.edu.metalcrawler.GameComponents.DrawStates;
+import csc472.depaul.edu.metalcrawler.GameComponents.Entity;
 import csc472.depaul.edu.metalcrawler.GameComponents.Environment;
 import csc472.depaul.edu.metalcrawler.GameComponents.GameManager;
 import csc472.depaul.edu.metalcrawler.GameComponents.Player;
@@ -80,11 +80,11 @@ public class DrawTest extends View{
 
             case MotionEvent.ACTION_DOWN:
                 Log.d("Blurb","Blurb");
-                Actor actor = ScanForActor(GameManager.Instance().GetCurrentEnvironment(),e.getX(), e.getY());
-                if (actor != null) {
-                    actor.PrintEntity();
-                    blurb.SetSprite(Bitmap.createScaledBitmap(actor.GetBitmap(),actor.GetBitmap().getWidth()*2,actor.GetBitmap().getHeight()*2,false));
-                    blurb.SetText(actor.GetDescription());
+                Entity entity = ScanForEntity(GameManager.Instance().GetCurrentEnvironment(),e.getX(), e.getY());
+                if (entity != null) {
+                    entity.PrintEntity();
+                    blurb.SetSprite(Bitmap.createScaledBitmap(entity.GetBitmap(),entity.GetBitmap().getWidth()*2,entity.GetBitmap().getHeight()*2,false));
+                    blurb.SetText(entity.GetDescription());
                     drawState = DrawStates.drawState_Blurb;
                 }
                 else
@@ -98,8 +98,15 @@ public class DrawTest extends View{
         return false;
     }
 
-    public Actor ScanForActor(Environment environment, float x, float y)
+    public Entity ScanForEntity(Environment environment, float x, float y)
     {
+        for (Entity entity : GameManager.Instance().GetEntities())
+        {
+            if (x > entity.GetX() * Sprite.TILE_SIZE && x < entity.GetX() * Sprite.TILE_SIZE + Sprite.TILE_SIZE && y > entity.GetY() * Sprite.TILE_SIZE && y < entity.GetY() * Sprite.TILE_SIZE + Sprite.TILE_SIZE)
+            {
+                return entity;
+            }
+        }
         for (Actor actor : GameManager.Instance().GetActors())
         {
             if (x > actor.GetX() * Sprite.TILE_SIZE && x < actor.GetX() * Sprite.TILE_SIZE + Sprite.TILE_SIZE && y > actor.GetY() * Sprite.TILE_SIZE && y < actor.GetY() * Sprite.TILE_SIZE + Sprite.TILE_SIZE)

@@ -27,6 +27,7 @@ public class TileFactory {
         {
             Tile tile = tiles.pop();
             GameManager.Instance().AddSprite(tile);
+            tile.SetEntity(null);
             tile.SetPosition(x,y);
             return tile;
         }
