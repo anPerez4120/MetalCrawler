@@ -1,7 +1,7 @@
 package csc472.depaul.edu.metalcrawler;
 
-import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
