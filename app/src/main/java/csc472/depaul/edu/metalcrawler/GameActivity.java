@@ -22,6 +22,7 @@ public class GameActivity extends AppCompatActivity {
     HealthBar healthBar;
     TextView currentScore;
     TextView highScore;
+    TextView hp;
 
     @Override
     protected void onCreate(Bundle savedInstance) {
@@ -34,6 +35,9 @@ public class GameActivity extends AppCompatActivity {
         healthBar = findViewById(R.id.healthBar);
         //To show the damage that has been dealt i made the background red
         healthBar.setBackgroundColor(Color.RED);
+
+        //TextView for the HP
+        hp = findViewById(R.id.healthText);
 
         //displaying the current high score on screen
         int score = getHighScore();
@@ -51,6 +55,8 @@ public class GameActivity extends AppCompatActivity {
             gameManager = GameManager.Instance();
             gameManager.GameStart(this, findViewById(R.id.drawTest));
         }
+        //Set text after gameManager is created
+        hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/100.0");
 
         findViewById(R.id.move_left).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +65,7 @@ public class GameActivity extends AppCompatActivity {
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
                 healthBar.invalidate();
+                hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/100.0");
                 highScore.setText("High Score: " + getHighScore());
                 currentScore.setText("Current Score: " + gameManager.getScore());
                 checkIfGameOver();
@@ -71,6 +78,7 @@ public class GameActivity extends AppCompatActivity {
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
                 healthBar.invalidate();
+                hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/100.0");
                 highScore.setText("High Score: " + getHighScore());
                 currentScore.setText("Current Score: " + gameManager.getScore());
                 checkIfGameOver();
@@ -83,6 +91,7 @@ public class GameActivity extends AppCompatActivity {
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
                 healthBar.invalidate();
+                hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/100.0");
                 highScore.setText("High Score: " + getHighScore());
                 currentScore.setText("Current Score: " + gameManager.getScore());
                 checkIfGameOver();
@@ -95,6 +104,7 @@ public class GameActivity extends AppCompatActivity {
                 DrawTest view = findViewById( R.id.drawTest);
                 view.Update();
                 healthBar.invalidate();
+                hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/100.0");
                 highScore.setText("High Score: " + getHighScore());
                 currentScore.setText("Current Score: " + gameManager.getScore());
                 checkIfGameOver();
@@ -114,6 +124,9 @@ public class GameActivity extends AppCompatActivity {
             gameManager.GameEnd();
             gameManager = GameManager.Instance();
             gameManager.GameStart(getGameActivity(), findViewById(R.id.drawTest));
+            hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/100.0");
+            highScore.setText("High Score: " + getHighScore());
+            currentScore.setText("Current Score: " + gameManager.getScore());
         }
     }
 
