@@ -23,7 +23,7 @@ public class GameManager implements Parcelable {
     // Android Objects
     Context context;
     View view;
-    int depth;
+
     // Map Objects
     CellularAutomata cellAuto;
     int w;
@@ -89,9 +89,9 @@ public class GameManager implements Parcelable {
         environmentList.add(new Environment(view,w,h));
         currentEnvironment++;
 
-        depth = 1;
+
         player =  new Player(view);
-        environmentList.get(currentEnvironment).PopulateTiles(cellAuto,w,h,depth);
+        environmentList.get(currentEnvironment).PopulateTiles(cellAuto,w,h);
         // environmentList.get(currentEnvironment).PopulateEnemies(0,null);
 
         view.invalidate();
@@ -100,14 +100,12 @@ public class GameManager implements Parcelable {
     public void GameEnd()
     {
         // TODO
-
         saveHighScorePreference();
         instance = new GameManager();
         instance.environmentList = new ArrayList<Environment>();
         instance.cellAuto = new CellularAutomata();
         instance.sprites = new ArrayList<List<Sprite>>();
         instance.actors = new ArrayList<Actor>();
-        instance.entities = new ArrayList<Entity>();
     }
 
     public void PerformTurn()
@@ -143,8 +141,7 @@ public class GameManager implements Parcelable {
         {
             entities.get(i).Recycle();
         }
-        depth++;
-        environmentList.get(currentEnvironment).PopulateTiles(cellAuto,w,h,depth);
+        environmentList.get(currentEnvironment).PopulateTiles(cellAuto,w,h);
     }
 
 

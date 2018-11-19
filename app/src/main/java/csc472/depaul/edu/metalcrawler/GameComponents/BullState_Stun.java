@@ -5,7 +5,7 @@ public class BullState_Stun extends BullState {
     public BullState GetNextState(Bull bull)
     {
         bull.RunStun();
-        if (bull.IsStunned())
+        if (!bull.IsStunned())
         {
             return BullFSM.seek;
         }

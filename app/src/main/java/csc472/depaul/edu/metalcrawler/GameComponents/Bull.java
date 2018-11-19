@@ -14,19 +14,20 @@ public class Bull extends Actor implements  IEnemy {
     int stun = 0;
     public Bull(View view) {
         super(view);
-        isSolid = true;
-        health=50;
-        health_max=50;
-        damage = 25;
-        bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.bull);
-        type = EntityType.ENEMY;
         Init();
+        bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.bull);
     }
 
     void Init()
     {
+        isSolid = true;
+        name = "Bronze Bull";
+        type = EntityType.ENEMY;
         description = "A soulless Bronze Bull. Upon seeing the player, charges forward until it hits a wall, where it stays for three turns. Very deadly.";
         bullState = BullFSM.seek;
+        health=50;
+        health_max=50;
+        damage = 25;
     }
 
 
@@ -34,14 +35,8 @@ public class Bull extends Actor implements  IEnemy {
     {
         super(view);
         SetPosition(x,y);
-        isSolid = true;
-
-        health=20;
-        health_max=20;
-
-        bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.bull);
-        type = EntityType.ENEMY;
         Init();
+        bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.bull);
     }
 
     @Override
@@ -97,5 +92,16 @@ public class Bull extends Actor implements  IEnemy {
         return stun > 0;
     }
 
+    @Override
+    public String GetDescription()
+    {
+        String desc = super.GetDescription();
+
+        if (stun > 0) {
+            desc += String.format("\n\nStunned for %d more turns",stun);
+        }
+
+        return desc;
+    }
 
 }

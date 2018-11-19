@@ -10,6 +10,8 @@ import csc472.depaul.edu.metalcrawler.GameComponents.CellularAutomata.Coord;
 import csc472.depaul.edu.metalcrawler.GameComponents.CellularAutomata.TileBlockType;
 import csc472.depaul.edu.metalcrawler.GameComponents.CellularAutomata.CellularAutomata;
 
+import static csc472.depaul.edu.metalcrawler.GameComponents.SpawnChances.gold;
+
 public class Environment {
     Tile[][] tileGrid;
     int width, height;
@@ -28,7 +30,7 @@ public class Environment {
     }
     List<Coord> tiles;
     Door door;
-    void PopulateTiles(CellularAutomata cellAuto, int w, int h)
+    void PopulateTiles(CellularAutomata cellAuto, int w, int h, int depth)
     {
         if (door != null)
             door.Recycle();
@@ -107,12 +109,41 @@ public class Environment {
             tile = tempTiles.get(random.nextInt(tempTiles.size()));
             r = random.nextFloat();
             if (r > 0.5f) {
-                tileGrid[tile.x][tile.y].SetEntity(EntityFactory.Instance().GetGold(tile.x, tile.y));
+            //    tileGrid[tile.x][tile.y].SetEntity(EntityFactory.Instance().GetGold(tile.x, tile.y));
             } else {
-                tileGrid[tile.x][tile.y].SetEntity(EntityFactory.Instance().GetPotion(tile.x, tile.y));
+              //  tileGrid[tile.x][tile.y].SetEntity(EntityFactory.Instance().GetPotion(tile.x, tile.y));
             }
             tempTiles.remove(tile);
         }
+
+        int cogs = 1+((int)Math.floor((SpawnChances.gold.CalculateCount(depth)-1) * random.nextFloat() * SpawnChances.gold.CalculateFrequency(depth)));
+        for (int i=0; i<cogs; i++)
+        {
+            tile = tempTiles.get(random.nextInt(tempTiles.size()));
+            tileGrid[tile.x][tile.y].SetEntity(EntityFactory.Instance().GetGold(tile.x, tile.y));
+            tempTiles.remove(tile);
+        }
+
+
+        int potions = 1+((int)Math.floor((SpawnChances.gold.CalculateCount(depth)-1) * random.nextFloat() * SpawnChances.gold.CalculateFrequency(depth)));
+        for (int i=0; i < potions; i++)
+        {
+            tile = tempTiles.get(random.nextInt(tempTiles.size()));
+            tileGrid[tile.x][tile.y].SetEntity(EntityFactory.Instance().GetGold(tile.x, tile.y));
+            tempTiles.remove(tile);
+        }
+        /*
+        int enemies = 1+(enemyCount*random*freq);
+            if random.vaue > freq
+                spawn enemies
+
+         */
+    }
+
+
+    void SpawnEntity(List<Tile> tempTiles, Entity entity)
+    {
+
     }
 
     public Tile GetTile(int x, int y)
@@ -140,5 +171,10 @@ public class Environment {
         Tile newTile = GetTile(newX,newY);
         if (newTile != null)
             newTile.SetEntity(entity);
+    }
+
+    public float GetPotionFrequency(int level)
+    {
+        return 0.5f;
     }
 }

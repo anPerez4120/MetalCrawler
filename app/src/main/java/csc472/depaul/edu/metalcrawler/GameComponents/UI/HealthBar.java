@@ -35,7 +35,7 @@ public class HealthBar extends SurfaceView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        paint.setColor(Color.GREEN);
+        paint.setColor(Color.rgb(51,153,102));
         paint.setStyle(Paint.Style.FILL);
         paint.setStrokeWidth(3);
 

@@ -22,6 +22,7 @@ public class Junkie extends Actor implements IEnemy{
 
     void Init()
     {
+        name = "Junkie";
         description = "A mangey junkie looking for normal-people flesh to eat. Not particularly dangerous, but do meet them with deadly force.";
     }
 

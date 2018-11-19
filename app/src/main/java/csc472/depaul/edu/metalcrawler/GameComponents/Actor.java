@@ -1,5 +1,6 @@
 package csc472.depaul.edu.metalcrawler.GameComponents;
 
+import android.util.Log;
 import android.view.View;
 
 public class Actor extends Entity implements IMoving, IDamage {
@@ -7,7 +8,7 @@ public class Actor extends Entity implements IMoving, IDamage {
     float health_max = 100;
 
     float damage = 10;
-
+    String name;
     public Actor(){}
     public Actor(View view) {
         super(view);
@@ -17,7 +18,6 @@ public class Actor extends Entity implements IMoving, IDamage {
         super(view);
     }
 
-    // TODO: Move
     public void MoveUp(){       AttemptMove( 0,-1);}
     public void MoveDown(){     AttemptMove( 0, 1);}
     public void MoveLeft(){     AttemptMove(-1, 0);}
@@ -69,6 +69,9 @@ public class Actor extends Entity implements IMoving, IDamage {
 
     public float GetDamage()
     {
+
+        System.out.println(type.toString() + " dealt " + Float.toString(this.damage) + " damage");
+        Log.d("",type.toString() + " dealt " + Float.toString(this.damage) + " damage");
         return this.damage;
     }
 
@@ -94,5 +97,14 @@ public class Actor extends Entity implements IMoving, IDamage {
         Damage(other.GetDamage());
     }
 
+    @Override
+    public String GetDescription()
+    {
+        return GetInfo() + description;
+    }
 
+    public String GetInfo()
+    {
+        return String.format("%s\nHealth: %.2f/%.2f\nBase Damage: %.2f\n\n", name, health, health_max, damage);
+    }
 }

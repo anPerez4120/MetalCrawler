@@ -36,6 +36,7 @@ public class EnemyFactory {
             GameManager.Instance().AddSprite(junkie);
             GameManager.Instance().AddActor(junkie);
             junkie.SetPosition(x,y);
+            junkie.RestoreHealth();
             return junkie;
         }
     }
@@ -62,6 +63,7 @@ public class EnemyFactory {
             GameManager.Instance().AddSprite(bull);
             GameManager.Instance().AddActor(bull);
             bull.SetPosition(x,y);
+            bull.RestoreHealth();
             return bull;
         }
     }
@@ -87,6 +89,7 @@ public class EnemyFactory {
             GameManager.Instance().AddSprite(alchemist);
             GameManager.Instance().AddActor(alchemist);
             alchemist.SetPosition(x,y);
+            alchemist.RestoreHealth();
             return alchemist;
         }
     }
@@ -112,7 +115,7 @@ public class EnemyFactory {
             fireball.SetFreezeUpdate(true);
             GameManager.Instance().AddSprite(fireball);
             GameManager.Instance().AddActor(fireball);
-            fireball.SetPosition(x,y);
+            fireball.CheckEntity(x,y);
             return fireball;
         }
     }

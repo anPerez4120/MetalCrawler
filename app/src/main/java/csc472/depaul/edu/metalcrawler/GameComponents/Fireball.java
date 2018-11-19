@@ -17,8 +17,6 @@ public class Fireball extends Actor{
     public Fireball(View view) {
         super(view);
         isSolid = true;
-        health=20;
-        health_max=20;
         bitmap = BitmapFactory.decodeResource(view.getResources(), R.drawable.fireball);
         type = EntityType.ENEMY;
         Init();
@@ -26,7 +24,11 @@ public class Fireball extends Actor{
 
     void Init()
     {
+        health=0;
+        health_max=0;
+        damage = 30;
         description = "Get out of the way.";
+        name = "Chemical Fireball";
     }
 
     public Fireball(View view, int x, int y)
@@ -40,6 +42,11 @@ public class Fireball extends Actor{
         GameManager.Instance().AddSprite(this);
         GameManager.Instance().AddActor(this);
         // If the tile we spawned on is already taken, just die
+        CheckEntity(x,y);
+    }
+
+    public void CheckEntity(int x, int y)
+    {
         if (GameManager.Instance().GetCurrentEnvironment().GetTile(x,y) != null &&
             GameManager.Instance().GetCurrentEnvironment().GetTile(x,y).GetEntity() != null)
         {
@@ -110,8 +117,7 @@ public class Fireball extends Actor{
     @Override
     public void OnTouched(Actor actor)
     {
-        actor.Damage(damage);
-        Recycle();
+        actor.Damage(GetDamage());
     }
 
     @Override

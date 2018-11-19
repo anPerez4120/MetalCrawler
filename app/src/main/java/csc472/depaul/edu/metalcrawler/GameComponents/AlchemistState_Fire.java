@@ -4,7 +4,7 @@ public class AlchemistState_Fire extends AlchemistState {
     @Override
     public AlchemistState GetNextState(Alchemist alchemist) {
         alchemist.RunFire();
-        if (alchemist.IsFiring())
+        if (!alchemist.IsFiring())
         {
             return AlchemistFSM.seek;
         }

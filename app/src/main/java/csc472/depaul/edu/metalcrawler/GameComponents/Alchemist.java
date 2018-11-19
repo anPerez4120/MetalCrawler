@@ -27,6 +27,7 @@ public class Alchemist extends Actor implements IEnemy {
 
     void Init()
     {
+        name = "Alchemist";
         description = "A frenzied Alchemist who huffs his own concoctions to get high.";
     }
 
@@ -88,5 +89,18 @@ public class Alchemist extends Actor implements IEnemy {
 
     public boolean IsFiring()
     {return fireCounter > 0;}
+
+
+    @Override
+    public String GetDescription()
+    {
+        String desc = super.GetDescription();
+
+        if (fireCounter > 0) {
+            desc += String.format("\n\nFireball is on cooldown for %d more turns",fireCounter);
+        }
+
+        return desc;
+    }
 
 }
