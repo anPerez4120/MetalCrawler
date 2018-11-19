@@ -29,7 +29,11 @@ public class Player extends Actor {
     public void AttemptMove(int dx, int dy)
     {
         //TODO:Fix the scaling of the moves
-        if (ldx == dx && ldy == dy)
+        if (ldx == ldy){
+            momentum = 1;
+            riposte = 1;
+        }
+        else if (ldx == dx && ldy == dy)
         {
             //if they are riposted then make take them out of it and reset momentum
             riposte = 1;
@@ -60,6 +64,8 @@ public class Player extends Actor {
     {
         return damage * momentum * riposte;
     }
+
+
 
 
     @Override

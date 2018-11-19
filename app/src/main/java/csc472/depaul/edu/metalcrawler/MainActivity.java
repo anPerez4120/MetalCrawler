@@ -129,6 +129,17 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+        Button glossaryActivity = findViewById(R.id.glossaryButton);
+        if(glossaryActivity != null){
+            glossaryActivity.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), GlossaryActivity.class);
+                    getMainActivity().startActivity(intent);
+                }
+            });
+        }
+
     }
 
     @Override

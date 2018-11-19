@@ -25,6 +25,7 @@ public class GameActivity extends AppCompatActivity {
     TextView currentScore;
     TextView highScore;
     TextView hp;
+    TextView dmg;
 
     @Override
     protected void onCreate(Bundle savedInstance) {
@@ -38,6 +39,9 @@ public class GameActivity extends AppCompatActivity {
 
         //TextView for the HP
         hp = findViewById(R.id.healthText);
+        //TextView for damage
+        dmg = findViewById(R.id.damage);
+
 
         //displaying the current high score on screen
         int score = getHighScore();
@@ -61,6 +65,7 @@ public class GameActivity extends AppCompatActivity {
         }
         //Set text after gameManager is created
         hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/" + gameManager.GetPlayer().GetMaxHealth());
+        dmg.setText("DMG: " + gameManager.GetPlayer().GetDamage());
 
         healthBar = findViewById(R.id.healthBar);
         //To show the damage that has been dealt i made the background red
@@ -75,6 +80,7 @@ public class GameActivity extends AppCompatActivity {
                 view.Update();
                 healthBar.invalidate();
                 hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/" + gameManager.GetPlayer().GetMaxHealth());
+                dmg.setText("DMG: " + gameManager.GetPlayer().GetDamage());
                 highScore.setText("High Score: " + getHighScore());
                 currentScore.setText("Current Score: " + gameManager.getScore());
                 checkIfGameOver();
@@ -89,6 +95,7 @@ public class GameActivity extends AppCompatActivity {
                 view.Update();
                 healthBar.invalidate();
                 hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/" + gameManager.GetPlayer().GetMaxHealth());
+                dmg.setText("DMG: " + gameManager.GetPlayer().GetDamage());
                 highScore.setText("High Score: " + getHighScore());
                 currentScore.setText("Current Score: " + gameManager.getScore());
                 checkIfGameOver();
@@ -103,6 +110,7 @@ public class GameActivity extends AppCompatActivity {
                 view.Update();
                 healthBar.invalidate();
                 hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/" + gameManager.GetPlayer().GetMaxHealth());
+                dmg.setText("DMG: " + gameManager.GetPlayer().GetDamage());
                 highScore.setText("High Score: " + getHighScore());
                 currentScore.setText("Current Score: " + gameManager.getScore());
                 checkIfGameOver();
@@ -117,6 +125,7 @@ public class GameActivity extends AppCompatActivity {
                 view.Update();
                 healthBar.invalidate();
                 hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/" + gameManager.GetPlayer().GetMaxHealth());
+                dmg.setText("DMG: " + gameManager.GetPlayer().GetDamage());
                 highScore.setText("High Score: " + getHighScore());
                 currentScore.setText("Current Score: " + gameManager.getScore());
                 checkIfGameOver();
@@ -132,6 +141,7 @@ public class GameActivity extends AppCompatActivity {
                 view.Update();
                 healthBar.invalidate();
                 hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/" + gameManager.GetPlayer().GetMaxHealth());
+                dmg.setText("DMG: " + gameManager.GetPlayer().GetDamage());
                 highScore.setText("High Score: " + getHighScore());
                 currentScore.setText("Current Score: " + gameManager.getScore());
                 checkIfGameOver();
@@ -153,6 +163,7 @@ public class GameActivity extends AppCompatActivity {
             gameManager.GameStart(getGameActivity(), findViewById(R.id.drawTest));
             handlePlayer();
             hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/" + gameManager.GetPlayer().GetMaxHealth());
+            dmg.setText("DMG: " + gameManager.GetPlayer().GetDamage());
             highScore.setText("High Score: " + getHighScore());
             currentScore.setText("Current Score: " + gameManager.getScore());
         }
