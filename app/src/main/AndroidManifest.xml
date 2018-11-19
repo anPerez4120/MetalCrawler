@@ -33,6 +33,10 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity android:name=".ClassActivity"
+            android:exported="false">
+        </activity>
+
         <activity android:name=".GameOverActivity"
             android:exported="false">
         </activity>

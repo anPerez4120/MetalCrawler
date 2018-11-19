@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             gameActivity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), GameActivity.class);
+                    Intent intent = new Intent(getMainActivity(), ClassActivity.class);
                     getMainActivity().startActivity(intent);
                 }
             });

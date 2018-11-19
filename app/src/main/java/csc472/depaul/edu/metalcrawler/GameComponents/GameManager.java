@@ -106,6 +106,7 @@ public class GameManager implements Parcelable {
         instance.cellAuto = new CellularAutomata();
         instance.sprites = new ArrayList<List<Sprite>>();
         instance.actors = new ArrayList<Actor>();
+        instance.entities = new ArrayList<Entity>();
     }
 
     public void PerformTurn()

@@ -40,7 +40,7 @@ public class HealthBar extends SurfaceView {
         paint.setStrokeWidth(3);
 
         //make calculation for the ratio required to get rect width
-        ratio = GameManager.Instance().GetPlayer().GetHealth() / 100;
+        ratio = GameManager.Instance().GetPlayer().GetHealth() / GameManager.Instance().GetPlayer().GetMaxHealth();
 
         rect.set(0, 0, (int) (canvas.getWidth()*ratio), canvas.getHeight());
         canvas.drawRect(rect, paint);

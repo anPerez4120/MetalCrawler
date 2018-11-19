@@ -11,11 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import csc472.depaul.edu.metalcrawler.GameComponents.GameManager;
 import csc472.depaul.edu.metalcrawler.GameComponents.Player;
+import csc472.depaul.edu.metalcrawler.GameComponents.PlayerClass;
+import csc472.depaul.edu.metalcrawler.GameComponents.PlayerClasses;
 import csc472.depaul.edu.metalcrawler.GameComponents.UI.HealthBar;
 
 public class GameActivity extends AppCompatActivity {
 
-    Player player;
+    int playerNum;
     private GameManager gameManager;
     private long backPressedTime;
     private Toast backToast;
@@ -32,9 +34,7 @@ public class GameActivity extends AppCompatActivity {
 
         System.out.println("ONCREATE-------------------");
 
-        healthBar = findViewById(R.id.healthBar);
-        //To show the damage that has been dealt i made the background red
-        healthBar.setBackgroundColor(Color.RED);
+
 
         //TextView for the HP
         hp = findViewById(R.id.healthText);
@@ -49,14 +49,22 @@ public class GameActivity extends AppCompatActivity {
         currentScore = findViewById(R.id.currentScore);
         currentScore.setText("Current Score: 0");
 
+
         if (savedInstance != null)
             gameManager = savedInstance.getParcelable("GameManager");
         else {
             gameManager = GameManager.Instance();
             gameManager.GameStart(this, findViewById(R.id.drawTest));
+
+            //handle player class
+            handlePlayer();
         }
         //Set text after gameManager is created
-        hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/100.0");
+        hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/" + gameManager.GetPlayer().GetMaxHealth());
+
+        healthBar = findViewById(R.id.healthBar);
+        //To show the damage that has been dealt i made the background red
+        healthBar.setBackgroundColor(Color.RED);
 
         findViewById(R.id.move_left).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +74,7 @@ public class GameActivity extends AppCompatActivity {
                 view.ResetDrawState();
                 view.Update();
                 healthBar.invalidate();
-                hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/100.0");
+                hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/" + gameManager.GetPlayer().GetMaxHealth());
                 highScore.setText("High Score: " + getHighScore());
                 currentScore.setText("Current Score: " + gameManager.getScore());
                 checkIfGameOver();
@@ -80,7 +88,7 @@ public class GameActivity extends AppCompatActivity {
                 view.ResetDrawState();
                 view.Update();
                 healthBar.invalidate();
-                hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/100.0");
+                hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/" + gameManager.GetPlayer().GetMaxHealth());
                 highScore.setText("High Score: " + getHighScore());
                 currentScore.setText("Current Score: " + gameManager.getScore());
                 checkIfGameOver();
@@ -94,7 +102,7 @@ public class GameActivity extends AppCompatActivity {
                 view.ResetDrawState();
                 view.Update();
                 healthBar.invalidate();
-                hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/100.0");
+                hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/" + gameManager.GetPlayer().GetMaxHealth());
                 highScore.setText("High Score: " + getHighScore());
                 currentScore.setText("Current Score: " + gameManager.getScore());
                 checkIfGameOver();
@@ -108,7 +116,7 @@ public class GameActivity extends AppCompatActivity {
                 view.ResetDrawState();
                 view.Update();
                 healthBar.invalidate();
-                hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/100.0");
+                hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/" + gameManager.GetPlayer().GetMaxHealth());
                 highScore.setText("High Score: " + getHighScore());
                 currentScore.setText("Current Score: " + gameManager.getScore());
                 checkIfGameOver();
@@ -128,10 +136,21 @@ public class GameActivity extends AppCompatActivity {
             gameManager.GameEnd();
             gameManager = GameManager.Instance();
             gameManager.GameStart(getGameActivity(), findViewById(R.id.drawTest));
-            hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/100.0");
+            handlePlayer();
+            hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/" + gameManager.GetPlayer().GetMaxHealth());
             highScore.setText("High Score: " + getHighScore());
             currentScore.setText("Current Score: " + gameManager.getScore());
         }
+    }
+
+    //getting integer that was passed from GameActivity, and depending on the int we determine the class of the player and set it
+    private void handlePlayer(){
+        playerNum = getIntent().getIntExtra("player", 0);
+        if (playerNum == 1)
+            gameManager.GetPlayer().setClass(PlayerClasses.bruiser);
+        else if(playerNum == 2)
+            gameManager.GetPlayer().setClass(PlayerClasses.strider);
+        else gameManager.GetPlayer().setClass(PlayerClasses.basic);
     }
 
     @Override
@@ -145,6 +164,7 @@ public class GameActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
 
         outState.putParcelable("GameManager", gameManager);
+
     }
 
     @Override
