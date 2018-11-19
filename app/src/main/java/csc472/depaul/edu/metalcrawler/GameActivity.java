@@ -123,6 +123,21 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.waitButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameManager.GetPlayer().dontMove();
+                DrawTest view = findViewById( R.id.drawTest);
+                view.ResetDrawState();
+                view.Update();
+                healthBar.invalidate();
+                hp.setText("Health: " + gameManager.GetPlayer().GetHealth() + "/" + gameManager.GetPlayer().GetMaxHealth());
+                highScore.setText("High Score: " + getHighScore());
+                currentScore.setText("Current Score: " + gameManager.getScore());
+                checkIfGameOver();
+            }
+        });
+
     }
 
     private int getHighScore(){
