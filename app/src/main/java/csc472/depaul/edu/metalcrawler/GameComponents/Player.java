@@ -8,9 +8,12 @@ import csc472.depaul.edu.metalcrawler.R;
 
 public class Player extends Actor {
     float momentum = 1;
+    float momentumScaling = 1;
+    float riposte = 1;
+    float riposteScaling = 1;
     int ldx = 0;
     int ldy = 0;
-    boolean riposte;
+
 
     float riposteAmount = 2.111f;
 
@@ -116,6 +119,8 @@ public class Player extends Actor {
     }
 
 
+
+
     @Override
     protected void SetDrawLayer()
     {
@@ -136,6 +141,13 @@ public class Player extends Actor {
 
         return info + description;
     }
+    public void setClass(PlayerClass c){
+        health = c.GetMaxHealth();
+        health_max = c.GetMaxHealth();
+        momentumScaling = c.GetMomentumScaling();
+        riposteScaling = c.GetRiposteScaling();
+    }
+
 
     @Override
     public void PrintEntity()

@@ -22,6 +22,7 @@ public class Actor extends Entity implements IMoving, IDamage {
     public void MoveDown(){     AttemptMove( 0, 1);}
     public void MoveLeft(){     AttemptMove(-1, 0);}
     public void MoveRight(){    AttemptMove( 1, 0);}
+    public void dontMove(){ AttemptMove(0, 0);}
 
     public void JumpToPosition(int x, int y){this.x = x; this.y = y;}
 
@@ -38,7 +39,7 @@ public class Actor extends Entity implements IMoving, IDamage {
         }
         else {
             Entity entity = tile.GetEntity();
-            if (entity != null) { // Is there an entity there
+            if (entity != null && !entity.equals(this)) { // Is there an entity there, and is it not itself
                 entity.OnTouched(this); // Perform its onTouch
                 if (tile.GetEntity() == null || !entity.IsSolid()) { // Is it flaccid :)))))) wait why did android studio spell-check me on the word 'flaccid'
                     Move(dx,dy);
@@ -63,7 +64,12 @@ public class Actor extends Entity implements IMoving, IDamage {
         if (health <= 0)
             Die();
     }
-    public void Heal(float heal){}
+    public void Heal(float heal){
+        health += heal;
+        if (health > health_max){
+            health = health_max;
+        }
+    }
     public void RestoreHealth(){}
     public void Die(){GameManager.Instance().GetCurrentEnvironment().HookUpTile(x,y,-1,-1,this);}//GameManager.Instance().RemoveSprite(this);GameManager.Instance().RemoveActor(this);}
 
