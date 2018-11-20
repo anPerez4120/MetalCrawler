@@ -70,7 +70,7 @@ public class Actor extends Entity implements IMoving, IDamage {
             health = health_max;
         }
     }
-    public void RestoreHealth(){}
+    public void RestoreHealth(){ health = health_max;}
     public void Die(){GameManager.Instance().GetCurrentEnvironment().HookUpTile(x,y,-1,-1,this);}//GameManager.Instance().RemoveSprite(this);GameManager.Instance().RemoveActor(this);}
 
     public float GetDamage()

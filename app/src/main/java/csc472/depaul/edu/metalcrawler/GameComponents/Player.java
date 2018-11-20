@@ -47,7 +47,7 @@ public class Player extends Actor {
         }
         else
         {
-            momentum = 1;
+            momentum = 0;
         }
 
         // SUPER ATTEMPT MOVE
@@ -59,11 +59,11 @@ public class Player extends Actor {
         if (tile == null) // We dont care about null tiles rn
         {
             riposte = false;
-            momentum = 1;
+            momentum = 0;
         }
         else {
             Entity entity = tile.GetEntity();
-            if (entity != null) { // Is there an entity there
+            if (entity != null && !entity.equals(this)) { // Is there an entity there
                 entity.OnTouched(this); // Perform its onTouch
                 if (tile.GetEntity() == null || !entity.IsSolid()) { // Is it flaccid :)))))) wait why did android studio spell-check me on the word 'flaccid'
                     Move(dx,dy);
@@ -71,7 +71,7 @@ public class Player extends Actor {
                 else
                 {
                     riposte = false;
-                    momentum = 1;
+                    momentum = 0;
                 }
             } else {
                 Move(dx,dy);
@@ -86,17 +86,17 @@ public class Player extends Actor {
                     riposte = false;
                 }
                 momentum += 1;
-                if (momentum > 5)
-                    momentum = 5;
+                if (momentum > 4)
+                    momentum = 4;
             }
             else
             {
-                momentum = 1;
+                momentum = 0;
             }
         }
         else
         {
-            momentum = 1;
+            momentum = 0;
         }
         ldx = dx;
         ldy = dy;
@@ -106,7 +106,7 @@ public class Player extends Actor {
     @Override
     public float GetDamage()
     {
-        float tDamage = damage * momentum * momentumScaling;
+        float tDamage = damage + (damage * momentum * momentumScaling);
         if (riposte)
         {
             tDamage = damage * riposteAmount * riposteScaling;
@@ -133,7 +133,7 @@ public class Player extends Actor {
         String info = GetInfo();
 
         info += "Current MOMENTUM Multiplier: " + Float.toString(momentum * momentumScaling);
-        info += "\n- Potential MOMENTUM damage: " + Float.toString(damage * momentum * momentumScaling);
+        info += "\n- Potential MOMENTUM damage: " + Float.toString(damage + (damage * momentum * momentumScaling));
         info += "\nCurrent RIPOSTE Multiplier: " + Float.toString(riposteAmount *riposteScaling);
         info += "\n- Potential RIPOSTE damage: " + Float.toString(damage * riposteAmount * riposteScaling);
 

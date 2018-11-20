@@ -16,19 +16,22 @@
         android:id="@+id/defaultClass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Crawler"/>
+        android:text="Crawler"
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/bruiser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bruiser" />
+        android:text="Bruiser"
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/strider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Strider"/>
+        android:text="Strider"
+        android:textSize="30sp" />
 
 
 

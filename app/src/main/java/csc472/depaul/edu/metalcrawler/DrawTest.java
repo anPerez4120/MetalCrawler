@@ -2,12 +2,15 @@ package csc472.depaul.edu.metalcrawler;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.Typeface;
+import android.support.v4.content.res.ResourcesCompat;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
@@ -147,7 +150,8 @@ public class DrawTest extends View{
     {
         mTextPaint.setStyle(Paint.Style.FILL);
         mTextPaint.setColor(Color.WHITE);
-        mTextPaint.setTextSize(32);
+        mTextPaint.setTypeface(ResourcesCompat.getFont(getContext(),R.font.dpcomic));
+        mTextPaint.setTextSize(64);
         mPiePaint.setColor(Color.BLACK);
         mPiePaint.setAlpha(200);
 
@@ -159,8 +163,8 @@ public class DrawTest extends View{
                 mPiePaint);
 
         canvas.save();
-        canvas.translate(60,160);
-        StaticLayout.Builder.obtain(blurb.GetString(),0,blurb.GetString().length(),mTextPaint,point.x - 80).build().draw(canvas);
+        canvas.translate(60,180);
+        StaticLayout.Builder.obtain(blurb.GetString(),0,blurb.GetString().length(),mTextPaint,point.x - 100).build().draw(canvas);
         canvas.restore();
     }
 
