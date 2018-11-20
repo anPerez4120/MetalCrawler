@@ -14,7 +14,7 @@ public class GoldSpawnChance extends SpawnChance {
     public float CalculateFrequency(int level) {
         return minFrequency + (((float)Math.log(level)) * (maxFrequency - minFrequency));
     }
-
+    
     @Override
     public float CalculateCount(int level) {
         return minCount + Math.min(1,Math.round((float)level/maxLevel)) * (maxCount-minCount);

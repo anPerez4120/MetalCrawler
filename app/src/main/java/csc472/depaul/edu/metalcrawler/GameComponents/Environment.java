@@ -116,7 +116,7 @@ public class Environment {
             tempTiles.remove(tile);
         }
 
-        int cogs = 1+((int)Math.floor((SpawnChances.gold.CalculateCount(depth)-1) * random.nextFloat() * SpawnChances.gold.CalculateFrequency(depth)));
+        int cogs = (int)SpawnChances.gold.GetRandom(depth);
         for (int i=0; i<cogs; i++)
         {
             tile = tempTiles.get(random.nextInt(tempTiles.size()));
@@ -124,12 +124,11 @@ public class Environment {
             tempTiles.remove(tile);
         }
 
-
-        int potions = 1+((int)Math.floor((SpawnChances.gold.CalculateCount(depth)-1) * random.nextFloat() * SpawnChances.gold.CalculateFrequency(depth)));
+        int potions = (int)SpawnChances.potions.GetRandom(depth);
         for (int i=0; i < potions; i++)
         {
             tile = tempTiles.get(random.nextInt(tempTiles.size()));
-            tileGrid[tile.x][tile.y].SetEntity(EntityFactory.Instance().GetGold(tile.x, tile.y));
+            tileGrid[tile.x][tile.y].SetEntity(EntityFactory.Instance().GetPotion(tile.x, tile.y));
             tempTiles.remove(tile);
         }
         /*
