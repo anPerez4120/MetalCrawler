@@ -82,7 +82,11 @@ public class Environment {
             }
         }
 
-        Coord tile = tempTiles.get(random.nextInt(tempTiles.size()));
+        // SPAWNING ---
+        Coord tile;
+        // PLAYER / DOOR ---------------------------------------------------------------------------------
+
+        tile = tempTiles.get(random.nextInt(tempTiles.size()));
         door = DoorFactory.Instance().GetDoor(tile.x,tile.y);
         tileGrid[tile.x][tile.y].SetEntity(door);
         tempTiles.remove(tile);
@@ -92,30 +96,7 @@ public class Environment {
         tileGrid[tile.x][tile.y].SetEntity(GameManager.Instance().GetPlayer());
         tempTiles.remove(tile);
 
-        for (int i=0; i<3;i++) {
-            tile = tempTiles.get(random.nextInt(tempTiles.size()));
-
-            float r = random.nextFloat();
-            if (r > 0.66f) {
-                tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetJunkie(tile.x, tile.y));
-            } else if (r > 0.33f) {
-                tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetBull(tile.x, tile.y));
-            } else {
-                tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetAlchemist(tile.x, tile.y));
-            }
-
-            tempTiles.remove(tile);
-
-            tile = tempTiles.get(random.nextInt(tempTiles.size()));
-            r = random.nextFloat();
-            if (r > 0.5f) {
-            //    tileGrid[tile.x][tile.y].SetEntity(EntityFactory.Instance().GetGold(tile.x, tile.y));
-            } else {
-              //  tileGrid[tile.x][tile.y].SetEntity(EntityFactory.Instance().GetPotion(tile.x, tile.y));
-            }
-            tempTiles.remove(tile);
-        }
-
+        // COGS / POTIONS ---------------------------------------------------------------------------------
         int cogs = (int)SpawnChances.gold.GetRandom(depth);
         for (int i=0; i<cogs; i++)
         {
@@ -131,12 +112,31 @@ public class Environment {
             tileGrid[tile.x][tile.y].SetEntity(EntityFactory.Instance().GetPotion(tile.x, tile.y));
             tempTiles.remove(tile);
         }
-        /*
-        int enemies = 1+(enemyCount*random*freq);
-            if random.vaue > freq
-                spawn enemies
 
-         */
+        // ENEMIES -----------------------------------------------------------------------------------------------
+        int junkies = (int)SpawnChances.junkie.GetRandom(depth);
+        for (int i=0; i < junkies; i++)
+        {
+            tile = tempTiles.get(random.nextInt(tempTiles.size()));
+            tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetJunkie(tile.x, tile.y));
+            tempTiles.remove(tile);
+        }
+
+        int bulls = (int)SpawnChances.bull.GetRandom(depth);
+        for (int i=0; i < bulls; i++)
+        {
+            tile = tempTiles.get(random.nextInt(tempTiles.size()));
+            tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetBull(tile.x, tile.y));
+            tempTiles.remove(tile);
+        }
+
+        int alchemists = (int)SpawnChances.alchemist.GetRandom(depth);
+        for (int i=0; i < alchemists; i++)
+        {
+            tile = tempTiles.get(random.nextInt(tempTiles.size()));
+            tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetAlchemist(tile.x, tile.y));
+            tempTiles.remove(tile);
+        }
     }
 
 
