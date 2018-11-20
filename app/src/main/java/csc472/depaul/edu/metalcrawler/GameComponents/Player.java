@@ -63,7 +63,7 @@ public class Player extends Actor {
         }
         else {
             Entity entity = tile.GetEntity();
-            if (entity != null) { // Is there an entity there
+            if (entity != null && !entity.equals(this)) { // Is there an entity there
                 entity.OnTouched(this); // Perform its onTouch
                 if (tile.GetEntity() == null || !entity.IsSolid()) { // Is it flaccid :)))))) wait why did android studio spell-check me on the word 'flaccid'
                     Move(dx,dy);
