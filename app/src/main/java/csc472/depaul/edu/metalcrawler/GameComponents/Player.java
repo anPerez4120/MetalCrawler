@@ -9,7 +9,7 @@ import csc472.depaul.edu.metalcrawler.R;
 public class Player extends Actor {
     float momentum = 1;
     float momentumScaling = 1;
-    float riposte = 1;
+    boolean riposte = false;
     float riposteScaling = 1;
     int ldx = 0;
     int ldy = 0;
@@ -106,10 +106,10 @@ public class Player extends Actor {
     @Override
     public float GetDamage()
     {
-        float tDamage = damage * momentum;
+        float tDamage = damage * momentum * momentumScaling;
         if (riposte)
         {
-            tDamage = damage * riposteAmount;
+            tDamage = damage * riposteAmount * riposteScaling;
             riposte = false;
         }
 
@@ -132,10 +132,10 @@ public class Player extends Actor {
     {
         String info = GetInfo();
 
-        info += "Current MOMENTUM Multiplier: " + Float.toString(momentum);
-        info += "\n- Potential MOMENTUM damage: " + Float.toString(damage * momentum);
-        info += "\nCurrent RIPOSTE Multiplier: " + Float.toString(riposteAmount);
-        info += "\n- Potential RIPOSTE damage: " + Float.toString(damage * riposteAmount);
+        info += "Current MOMENTUM Multiplier: " + Float.toString(momentum * momentumScaling);
+        info += "\n- Potential MOMENTUM damage: " + Float.toString(damage * momentum * momentumScaling);
+        info += "\nCurrent RIPOSTE Multiplier: " + Float.toString(riposteAmount *riposteScaling);
+        info += "\n- Potential RIPOSTE damage: " + Float.toString(damage * riposteAmount * riposteScaling);
 
         info += "\n\n";
 
