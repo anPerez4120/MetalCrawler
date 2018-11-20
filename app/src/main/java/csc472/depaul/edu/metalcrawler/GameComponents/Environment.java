@@ -1,5 +1,6 @@
 package csc472.depaul.edu.metalcrawler.GameComponents;
 
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -43,6 +44,8 @@ public class Environment {
         for (Coord tile : tiles)
         {
             tempTiles.add(tile);
+            //TODO:Println
+            Log.d("Environment: ","x: " + tile.x + " y: " + tile.y);
         }
 
         for (int x=0; x < width; x++)
@@ -93,6 +96,8 @@ public class Environment {
 
         tile = tempTiles.get(random.nextInt(tempTiles.size()));
         GameManager.Instance().GetPlayer().JumpToPosition(tile.x,tile.y);
+        //TODO:remove log
+        Log.d("Environment Player: ", "x:" + tile.x + " y:" + tile.y);
         tileGrid[tile.x][tile.y].SetEntity(GameManager.Instance().GetPlayer());
         tempTiles.remove(tile);
 
@@ -101,6 +106,8 @@ public class Environment {
         for (int i=0; i<cogs; i++)
         {
             tile = tempTiles.get(random.nextInt(tempTiles.size()));
+            //TODO:remove log
+            Log.d("Environment Gold: ", "x:" + tile.x + " y:" + tile.y);
             tileGrid[tile.x][tile.y].SetEntity(EntityFactory.Instance().GetGold(tile.x, tile.y));
             tempTiles.remove(tile);
         }
@@ -109,6 +116,8 @@ public class Environment {
         for (int i=0; i < potions; i++)
         {
             tile = tempTiles.get(random.nextInt(tempTiles.size()));
+            //TODO:remove log
+            Log.d("Environment Potion: ", "x:" + tile.x + " y:" + tile.y);
             tileGrid[tile.x][tile.y].SetEntity(EntityFactory.Instance().GetPotion(tile.x, tile.y));
             tempTiles.remove(tile);
         }
@@ -118,6 +127,8 @@ public class Environment {
         for (int i=0; i < junkies; i++)
         {
             tile = tempTiles.get(random.nextInt(tempTiles.size()));
+            //TODO:remove log
+            Log.d("Environment Junkie: ", "x:" + tile.x + " y:" + tile.y);
             tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetJunkie(tile.x, tile.y));
             tempTiles.remove(tile);
         }
@@ -126,6 +137,8 @@ public class Environment {
         for (int i=0; i < bulls; i++)
         {
             tile = tempTiles.get(random.nextInt(tempTiles.size()));
+            //TODO:remove log
+            Log.d("Environment Bull: ", "x:" + tile.x + " y:" + tile.y);
             tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetBull(tile.x, tile.y));
             tempTiles.remove(tile);
         }
@@ -134,6 +147,8 @@ public class Environment {
         for (int i=0; i < alchemists; i++)
         {
             tile = tempTiles.get(random.nextInt(tempTiles.size()));
+            //TODO:remove log
+            Log.d("Environment Alchemist: ", "x:" + tile.x + " y:" + tile.y);
             tileGrid[tile.x][tile.y].SetEntity(EnemyFactory.Instance().GetAlchemist(tile.x, tile.y));
             tempTiles.remove(tile);
         }
